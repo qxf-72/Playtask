@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "com.jnu.recyclerview_demo"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.jnu.recyclerview_demo"
