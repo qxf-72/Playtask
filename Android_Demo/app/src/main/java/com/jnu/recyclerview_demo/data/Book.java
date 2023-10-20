@@ -1,4 +1,4 @@
-package com.jnu.recyclerview_demo;
+package com.jnu.recyclerview_demo.data;
 
 public class Book {
     private String title;
