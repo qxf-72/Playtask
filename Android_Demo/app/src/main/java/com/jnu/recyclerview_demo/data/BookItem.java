@@ -1,10 +1,12 @@
 package com.jnu.recyclerview_demo.data;
 
-public class Book {
+import java.io.Serializable;
+
+public class BookItem implements Serializable {
     private String title;
     private int imageId;
 
-    public Book(String name, int imageId) {
+    public BookItem(String name, int imageId) {
         this.title = name;
         this.imageId = imageId;
     }

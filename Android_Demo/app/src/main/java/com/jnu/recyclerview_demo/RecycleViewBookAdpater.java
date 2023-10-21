@@ -12,17 +12,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jnu.recyclerview_demo.data.Book;
+import com.jnu.recyclerview_demo.data.BookItem;
 
 import java.util.ArrayList;
 
 public class RecycleViewBookAdpater extends RecyclerView.Adapter<RecycleViewBookAdpater.MyViewHolder> {
     Context context;
-    ArrayList<Book> books;
+    ArrayList<BookItem> bookItems;
 
-    public RecycleViewBookAdpater(Context context, ArrayList<Book> books) {
+    public RecycleViewBookAdpater(Context context, ArrayList<BookItem> bookItems) {
         this.context = context;
-        this.books = books;
+        this.bookItems = bookItems;
     }
 
     @NonNull
@@ -36,15 +36,15 @@ public class RecycleViewBookAdpater extends RecyclerView.Adapter<RecycleViewBook
     //设置显示的数据
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.imageView.setImageDrawable(this.context.getDrawable(this.books.get(position).getCoverResourceId()));
-        holder.textView.setText(this.books.get(position).getTitle());
+        holder.imageView.setImageDrawable(this.context.getDrawable(this.bookItems.get(position).getCoverResourceId()));
+        holder.textView.setText(this.bookItems.get(position).getTitle());
 
     }
 
     //获取传入数据的大小
     @Override
     public int getItemCount() {
-        return this.books.size();
+        return this.bookItems.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
@@ -64,9 +64,9 @@ public class RecycleViewBookAdpater extends RecyclerView.Adapter<RecycleViewBook
             menu.setHeaderTitle("具体操作");
             // getAdapterPosition()获取当前item的位置,即在list中的位置
             // menu.add(分组id,itemid,item位置,标题)
-            menu.add(0, 0, this.getAdapterPosition(), "添加" + this.getAdapterPosition());
-            menu.add(0, 1, this.getAdapterPosition(), "删除" + this.getAdapterPosition());
-            menu.add(0, 2, this.getAdapterPosition(), "修改" + this.getAdapterPosition());
+            menu.add(0, 0, this.getAdapterPosition(), "新建");
+            menu.add(0, 1, this.getAdapterPosition(), "修改第" + (this.getAdapterPosition()+1)+"项");
+            menu.add(0, 2, this.getAdapterPosition(), "删除第" + (this.getAdapterPosition()+1)+"项");
 
         }
     }

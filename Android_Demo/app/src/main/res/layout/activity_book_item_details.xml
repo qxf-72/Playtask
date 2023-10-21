@@ -39,15 +39,28 @@
 
     <Button
         android:id="@+id/button_item_details_ok"
-        android:layout_width="127dp"
-        android:layout_height="72dp"
-        android:layout_marginBottom="120dp"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="100dp"
         android:text="@string/text_ok"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.171"
         app:layout_constraintStart_toStartOf="parent"
         app:strokeColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/button_item_details_cancel"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="100dp"
+        android:text="@string/text_cancel"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toEndOf="@+id/button_item_details_ok"
+        tools:ignore="TextSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

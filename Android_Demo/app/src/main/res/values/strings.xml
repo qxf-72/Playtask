@@ -2,4 +2,5 @@
     <string name="app_name">RecyclerView_Demo</string>
     <string name="text_book_name">书本名称</string>
     <string name="text_ok">OK</string>
+    <string name="text_cancel">Cancel</string>
 </resources>
