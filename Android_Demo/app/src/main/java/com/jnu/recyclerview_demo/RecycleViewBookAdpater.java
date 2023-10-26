@@ -46,6 +46,7 @@ public class RecycleViewBookAdpater extends RecyclerView.Adapter<RecycleViewBook
     public int getItemCount() {
         return this.bookItems.size();
     }
+    
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
         ImageView imageView;
