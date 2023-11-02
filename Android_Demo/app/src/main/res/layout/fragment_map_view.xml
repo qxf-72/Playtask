@@ -5,9 +5,13 @@
     android:layout_height="match_parent"
     tools:context=".MapViewFragment">
 
-    <WebView
-        android:id="@+id/webView_map"
+<!--    <com.tencent.tencentmap.mapsdk.maps.MapView-->
+<!--        android:id="@+id/mapView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent" />-->
+    <com.tencent.tencentmap.mapsdk.maps.TextureMapView
+        android:id="@+id/mapView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
 </FrameLayout>
