@@ -32,8 +32,6 @@ public class MapViewFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_map_view, container, false);
         mapView = rootView.findViewById(R.id.mapView);
-
-
         return rootView;
     }
 
