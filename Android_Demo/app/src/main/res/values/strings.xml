@@ -1,8 +1,10 @@
 <resources>
-    <string name="app_name">RecyclerView_Demo</string>
-    <string name="text_book_name">书本名称</string>
+    <string name="app_name">Android_Demo</string>
     <string name="text_ok">OK</string>
     <string name="text_cancel">Cancel</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_task">任务</string>
+    <string name="title_reward">奖励</string>
+    <string name="title_me">我</string>
 </resources>

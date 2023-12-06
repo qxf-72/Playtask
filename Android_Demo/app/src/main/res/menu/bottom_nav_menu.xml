@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_task"
+        android:icon="@drawable/ic_task_gray_36dp"
+        android:title="@string/title_task" />
+
+    <item
+        android:id="@+id/navigation_reward"
+        android:icon="@drawable/ic_reward_grey_36dp"
+        android:title="@string/title_reward" />
+
+    <item
+        android:id="@+id/navigation_me"
+        android:icon="@drawable/ic_me_grey_36dp"
+        android:title="@string/title_me" />
+
+</menu>
