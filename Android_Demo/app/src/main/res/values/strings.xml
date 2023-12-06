@@ -7,4 +7,9 @@
     <string name="title_task">任务</string>
     <string name="title_reward">奖励</string>
     <string name="title_me">我</string>
+    <string name="text_title">标题</string>
+    <string name="text_reward_point">成就点数</string>
+    <string name="text_task_amount">数量（可选）</string>
+    <string name="text_task_type">任务类型</string>
+    <string name="text_task_tag_description">通过标签对任务进行分类</string>
 </resources>
