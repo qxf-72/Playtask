@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Android_Demo"
         tools:targetApi="31">
         <activity
+            android:name=".ui.task.AddTaskItemActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name">
@@ -25,48 +28,3 @@
     </application>
 
 </manifest>
-
-
-<!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<manifest xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:tools="http://schemas.android.com/tools">-->
-<!--    &lt;!&ndash;腾讯地图 SDK 要求的权限(开始)&ndash;&gt;-->
-<!--    &lt;!&ndash;访问网络获取地图服务&ndash;&gt;-->
-<!--    <uses-permission android:name="android.permission.INTERNET"/>-->
-<!--    &lt;!&ndash;检查网络可用性&ndash;&gt;-->
-<!--    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>-->
-<!--    &lt;!&ndash; 访问WiFi状态 &ndash;&gt;-->
-<!--    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />-->
-<!--    &lt;!&ndash;需要外部存储写权限用于保存地图缓存&ndash;&gt;-->
-<!--    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>-->
-<!--    &lt;!&ndash;获取 device id 辨别设备&ndash;&gt;-->
-<!--    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>-->
-<!--    &lt;!&ndash;腾讯地图 SDK 要求的权限(结束)&ndash;&gt;-->
-
-<!--    <application-->
-<!--        android:usesCleartextTraffic="true"-->
-<!--        android:allowBackup="true"-->
-<!--        android:icon="@mipmap/ic_launcher"-->
-<!--        android:label="@string/app_name"-->
-<!--        android:roundIcon="@mipmap/ic_launcher_round"-->
-<!--        android:supportsRtl="true">-->
-
-<!--        <meta-data-->
-<!--            android:name="TencentMapSDK"-->
-<!--            android:value="7BPBZ-H7GKB-SFOUV-JQWQ7-PTZUS-SLF7U" />-->
-
-<!--        <activity-->
-<!--            android:name=".BookItemDetailsActivity"-->
-<!--            android:exported="false" />-->
-<!--        <activity-->
-<!--            android:name=".MainActivity"-->
-<!--            android:exported="true">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
-<!--    </application>-->
-
-<!--</manifest>-->
