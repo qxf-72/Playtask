@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
+
         // 底部导航栏类
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
@@ -44,5 +45,20 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
+
+/*        // 底部导航栏的点击事件，点击时改变图标颜色
+        navView.setOnNavigationItemReselectedListener(item -> {
+            int id = item.getItemId();
+            if (id == R.id.navigation_task) {
+                item.setIcon(R.drawable.ic_task_blue_36dp);
+            } else if (id == R.id.navigation_reward) {
+                item.setIcon(R.drawable.ic_reward_blue_36dp);
+            } else if (id == R.id.navigation_me) {
+                item.setIcon(R.drawable.ic_me_blue_36dp);
+            }
+        });*/
     }
+
+
+
 }
