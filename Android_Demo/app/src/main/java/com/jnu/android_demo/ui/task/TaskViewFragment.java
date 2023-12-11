@@ -18,18 +18,22 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.jnu.android_demo.R;
+import com.jnu.android_demo.data.TaskItem;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class TaskViewFragment extends Fragment {
     private final String[] titles = new String[]{"每日任务", "每周任务", "普通任务"};
     private ActivityResultLauncher<Intent> addItem_launcher;
+    private SharedViewModel viewModel;
 
 
     public TaskViewFragment() {
@@ -38,7 +42,10 @@ public class TaskViewFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+        viewModel.setDataList(new ArrayList<>());
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,6 +81,20 @@ public class TaskViewFragment extends Fragment {
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == requireActivity().RESULT_OK) {
+                        // 获取从AddTaskItemActivity返回的数据
+                        Intent intent = result.getData();
+                        if (intent == null)
+                            return;
+
+                        // 添加数据
+                        TaskItem taskItem = new TaskItem(
+                                intent.getStringExtra("task_name"),
+                                intent.getIntExtra("task_score", 0),
+                                intent.getIntExtra("task_type", 0),
+                                intent.getIntExtra("task_amount", 0),
+                                0
+                        );
+                        viewModel.addData(taskItem);
 
                     } else if (result.getResultCode() == requireActivity().RESULT_CANCELED) {
 
@@ -151,7 +172,7 @@ public class TaskViewFragment extends Fragment {
                 case 2:
                     return new OrdinaryTaskViewFragment();
                 default:
-                    return null;
+                    throw new IllegalStateException("Unexpected value: " + position);
             }
         }
 

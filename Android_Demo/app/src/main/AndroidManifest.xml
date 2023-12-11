@@ -8,10 +8,15 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.Android_Demo"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.reward.AddRewardItemActivity"
+            android:exported="false"
+            android:label="@string/title_activity_add_reward_item"
+            android:theme="@style/Theme.Android_Demo" />
         <activity
             android:name=".ui.task.AddTaskItemActivity"
             android:exported="false" />
