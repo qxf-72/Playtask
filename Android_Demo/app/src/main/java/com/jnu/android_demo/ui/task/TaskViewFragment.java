@@ -50,11 +50,11 @@ public class TaskViewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root_view = inflater.inflate(R.layout.fragment_task_view, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_task_view, container, false);
 
         // 表明Fragment会添加菜单项
         setHasOptionsMenu(true);
-        root_view.post(() -> {
+        rootView.post(() -> {
             // 获取主页面的Toolbar引用
             Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
             ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
@@ -65,8 +65,8 @@ public class TaskViewFragment extends Fragment {
 
 
         // 获取ViewPager2和TabLayout的实例
-        ViewPager2 viewPager = root_view.findViewById(R.id.view_pager);
-        TabLayout tabLayout = root_view.findViewById(R.id.tab_layout);
+        ViewPager2 viewPager = rootView.findViewById(R.id.view_pager);
+        TabLayout tabLayout = rootView.findViewById(R.id.tab_layout);
         // 创建适配器
         FragmentAdapter fragmentAdapter = new FragmentAdapter(requireActivity().getSupportFragmentManager(), getLifecycle());
         viewPager.setAdapter(fragmentAdapter);
@@ -101,19 +101,22 @@ public class TaskViewFragment extends Fragment {
                     }
                 });
 
-        return root_view;
+        return rootView;
     }
 
 
-    // 在toolbar添加menu
+    /**
+     * 加载toolbar菜单
+     */
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.menu_main, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-
-    // toolbar按钮点击事件
+    /**
+     * 处理toolbar菜单点击事件
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -128,7 +131,9 @@ public class TaskViewFragment extends Fragment {
     }
 
 
-    // 弹出菜单
+    /**
+     * 显示弹出菜单
+     */
     private void showPopupMenu(View view) {
         String[] options = {"新建任务", "排序"};
 
@@ -139,7 +144,6 @@ public class TaskViewFragment extends Fragment {
                 case 0:
                     // 跳转到BookItemDetailsActivity
                     Intent intent = new Intent(requireContext(), AddTaskItemActivity.class);
-                    // 启动BookItemDetailsActivity
                     addItem_launcher.launch(intent);
                     break;
                 // 处理排序菜单项点击事件
@@ -152,7 +156,9 @@ public class TaskViewFragment extends Fragment {
     }
 
 
-    // 适配器内部类,用于管理Fragment
+    /**
+     * Fragment适配器
+     */
     private static class FragmentAdapter extends FragmentStateAdapter {
         private static final int NUM_TABS = 3;
 
@@ -160,10 +166,13 @@ public class TaskViewFragment extends Fragment {
             super(fragmentManager, lifecycle);
         }
 
+
+        /**
+         * 根据position创建Fragment
+         */
         @NonNull
         @Override
         public Fragment createFragment(int position) {
-            // 根据位置返回对应的Fragment实例
             switch (position) {
                 case 0:
                     return new DailyTaskViewFragment();
@@ -176,6 +185,9 @@ public class TaskViewFragment extends Fragment {
             }
         }
 
+        /**
+         * 返回Fragment的数量
+         */
         @Override
         public int getItemCount() {
             return NUM_TABS;

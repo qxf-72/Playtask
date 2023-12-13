@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name">Android_Demo</string>
-    <string name="text_ok">OK</string>
-    <string name="text_cancel">Cancel</string>
+    <string name="text_ok">确认</string>
+    <string name="text_cancel">取消</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_task">任务</string>
     <string name="title_reward">奖励</string>
     <string name="title_me">我</string>
     <string name="text_title">标题</string>
-    <string name="text_reward_point">成就点数</string>
+    <string name="text_reward_point">完成任务获得的成就点数</string>
     <string name="text_task_amount">数量（可选）</string>
     <string name="text_task_type">任务类型</string>
     <string name="text_task_tag_description">通过标签对任务进行分类</string>
@@ -55,4 +55,7 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="text_nothing_to_show">Nothing to show</string>
+    <string name="text_reward_points_spent">消耗的成就点数</string>
+    <string name="text_once">单次</string>
 </resources>

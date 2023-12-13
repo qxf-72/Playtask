@@ -66,8 +66,8 @@ public class DailyTaskViewFragment extends Fragment {
 
         // 初始化recycleView
         recyclerView = rootView.findViewById(R.id.recycle_view_daily_task);
-        TaskRecycleViewAdpater taskRecycleViewAdpater = new TaskRecycleViewAdpater(requireActivity(), dailyTaskItems);
-        recyclerView.setAdapter(taskRecycleViewAdpater);
+        TaskRecycleViewAdapter taskRecycleViewAdapter = new TaskRecycleViewAdapter(requireActivity(), dailyTaskItems);
+        recyclerView.setAdapter(taskRecycleViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
         // 观察数据变化

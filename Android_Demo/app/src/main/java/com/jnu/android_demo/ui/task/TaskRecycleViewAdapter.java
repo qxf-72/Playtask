@@ -16,12 +16,14 @@ import com.jnu.android_demo.data.TaskItem;
 
 import java.util.ArrayList;
 
-// recyclerview适配器
-public class TaskRecycleViewAdpater extends RecyclerView.Adapter<TaskRecycleViewAdpater.MyViewHolder> {
+/**
+ * 任务列表的适配器
+ */
+public class TaskRecycleViewAdapter extends RecyclerView.Adapter<TaskRecycleViewAdapter.MyViewHolder> {
     private Context context;
     private ArrayList<TaskItem> taskItems;
 
-    public TaskRecycleViewAdpater(Context context, ArrayList<TaskItem> taskItems) {
+    public TaskRecycleViewAdapter(Context context, ArrayList<TaskItem> taskItems) {
         this.context = context;
         this.taskItems = taskItems;
     }
@@ -29,16 +31,18 @@ public class TaskRecycleViewAdpater extends RecyclerView.Adapter<TaskRecycleView
 
     @NonNull
     @Override
-    public TaskRecycleViewAdpater.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TaskRecycleViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // 绑定一项数据所用到的Layout
         View view = LayoutInflater.from(this.context).inflate(R.layout.recycle_view_task_item, parent, false);
         return new MyViewHolder(view);
     }
 
-    // 设置显示的数据
+    /**
+     * 绑定数据到视图
+     */
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull TaskRecycleViewAdpater.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TaskRecycleViewAdapter.MyViewHolder holder, int position) {
         // 获取当前项的数据
         TaskItem taskItem = taskItems.get(position);
         holder.taskName.setText(taskItem.getTaskName());
@@ -46,12 +50,17 @@ public class TaskRecycleViewAdpater extends RecyclerView.Adapter<TaskRecycleView
         holder.score.setText("+" + taskItem.getScore());
     }
 
-    // 获取传入数据的大小
+    /**
+     * 获取数据项的数量
+     */
     @Override
     public int getItemCount() {
         return taskItems.size();
     }
-    // 自定义ViewHolder
+
+    /**
+     * 任务列表的ViewHolder
+     */
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView taskName;
         TextView amount;

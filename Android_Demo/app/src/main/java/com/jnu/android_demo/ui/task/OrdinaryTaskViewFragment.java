@@ -46,8 +46,8 @@ public class OrdinaryTaskViewFragment extends Fragment {
 
         // 初始化recycleView
         recyclerView = rootView.findViewById(R.id.recycle_view_ordinary_task);
-        TaskRecycleViewAdpater taskRecycleViewAdpater = new TaskRecycleViewAdpater(requireActivity(), ordinaryTaskItems);
-        recyclerView.setAdapter(taskRecycleViewAdpater);
+        TaskRecycleViewAdapter taskRecycleViewAdapter = new TaskRecycleViewAdapter(requireActivity(), ordinaryTaskItems);
+        recyclerView.setAdapter(taskRecycleViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
         // 观察数据变化

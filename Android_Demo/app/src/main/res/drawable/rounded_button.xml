@@ -1,0 +1,16 @@
+<!-- res/drawable/rounded_button.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- 设置圆角半径，这里是 20dp，可以根据需要调整 -->
+    <corners android:radius="10dp" />
+
+    <!-- 设置按钮的背景颜色，这里是蓝色，可以根据需要调整 -->
+    <solid android:color="#2196F3" />
+
+    <!-- 如果需要边框，可以添加以下代码 -->
+    <!-- <stroke
+        android:width="2dp"
+        android:color="#2980b9" /> -->
+
+</shape>

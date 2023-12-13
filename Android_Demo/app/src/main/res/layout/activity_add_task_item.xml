@@ -71,7 +71,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/textView_task_type"
+        android:id="@+id/textView_reward_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/text_task_type"
@@ -89,22 +89,23 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="#2196F3"
+        android:background="@drawable/rounded_button"
         android:text="@string/text_ok"
-        android:textSize="15sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.284"
+        app:layout_constraintHorizontal_bias="0.278"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumber_task_amount" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextNumber_task_amount"
+        app:layout_constraintVertical_bias="0.309" />
 
     <Button
         android:id="@+id/button_add_task_item_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#2196F3"
+        android:background="@drawable/rounded_button"
         android:text="@string/text_cancel"
-        android:textSize="14sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/button_add_task_item_ok"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.402"
