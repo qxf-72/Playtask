@@ -1,13 +1,22 @@
 package com.jnu.android_demo.data;
 
-public class RewardItem {
-    private String rewardName;
-    private int finishedAmount;
-    private int score;
-    private int type;   // 1：单次奖励   2：多次奖励
+import java.sql.Timestamp;
 
-    public RewardItem(String rewardName, int finishedAmount, int score, int type) {
-        this.rewardName = rewardName;
+public class RewardItem {
+    private long id;
+    private Timestamp time;
+    private String name;
+    private int score;
+    private int type;           // 1：单次奖励   2：多次奖励
+    private int finishedAmount;
+
+
+    public RewardItem() {
+    }
+
+    public RewardItem(Timestamp time, String name, int score, int type, int finishedAmount) {
+        this.time = time;
+        this.name = name;
         this.finishedAmount = finishedAmount;
         this.score = score;
         this.type = type;
@@ -16,8 +25,16 @@ public class RewardItem {
     /**
      * getter
      */
-    public String getRewardName() {
-        return rewardName;
+    public long getId() {
+        return id;
+    }
+
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getFinishedAmount() {
@@ -35,12 +52,12 @@ public class RewardItem {
     /**
      * setter
      */
-    public void setRewardName(String rewardName) {
-        this.rewardName = rewardName;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public void setFinishedAmount(int amount) {
-        this.finishedAmount = amount;
+    public void setTime(Timestamp time) {
+        this.time = time;
     }
 
     public void setScore(int score) {
@@ -50,4 +67,14 @@ public class RewardItem {
     public void setType(int type) {
         this.type = type;
     }
+
+    public void setName(String rewardName) {
+        this.name = rewardName;
+    }
+
+    public void setFinishedAmount(int amount) {
+        this.finishedAmount = amount;
+    }
+
+
 }

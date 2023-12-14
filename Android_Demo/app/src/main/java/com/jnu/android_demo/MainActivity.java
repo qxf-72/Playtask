@@ -11,17 +11,24 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.jnu.android_demo.data.DBMaster;
 import com.jnu.android_demo.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    // 声明数据库操作实例
+    @SuppressLint("StaticFieldLeak")
+    public static DBMaster mDBMaster;
 
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //启动数据库
+        mDBMaster = new DBMaster(getApplicationContext());
+        mDBMaster.openDataBase();
 
         // 布局文件绑定类
         binding = ActivityMainBinding.inflate(getLayoutInflater());

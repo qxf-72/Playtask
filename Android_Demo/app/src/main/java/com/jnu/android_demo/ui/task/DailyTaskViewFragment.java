@@ -32,7 +32,7 @@ public class DailyTaskViewFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dailyTaskItems=new ArrayList<>();
+        dailyTaskItems = new ArrayList<>();
         viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
     }
 
@@ -41,28 +41,6 @@ public class DailyTaskViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_daily_task_view, container, false);
-
-
-        // 测试数据
-        TaskItem taskItem1 = new TaskItem("每日签到", 10, 0, 1, 1);
-        TaskItem taskItem2 = new TaskItem("每日阅读", 10, 0, 1, 1);
-        TaskItem taskItem3 = new TaskItem("每日分享", 10, 0, 1, 1);
-        TaskItem taskItem4 = new TaskItem("每周签到", 10, 1, 1, 1);
-        TaskItem taskItem5 = new TaskItem("每周阅读", 10, 1, 1, 1);
-        TaskItem taskItem6 = new TaskItem("每周分享", 10, 1, 1, 1);
-        TaskItem taskItem7 = new TaskItem("普通任务1", 10, 2, 1, 1);
-        TaskItem taskItem8 = new TaskItem("普通任务2", 10, 2, 1, 1);
-        TaskItem taskItem9 = new TaskItem("普通任务3", 10, 2, 1, 1);
-        viewModel.addData(taskItem1);
-        viewModel.addData(taskItem2);
-        viewModel.addData(taskItem3);
-        viewModel.addData(taskItem4);
-        viewModel.addData(taskItem5);
-        viewModel.addData(taskItem6);
-        viewModel.addData(taskItem7);
-        viewModel.addData(taskItem8);
-        viewModel.addData(taskItem9);
-
 
         // 初始化recycleView
         recyclerView = rootView.findViewById(R.id.recycle_view_daily_task);
@@ -74,6 +52,8 @@ public class DailyTaskViewFragment extends Fragment {
         viewModel.getDataList().observe(getViewLifecycleOwner(), newData -> {
             // 根据TaskItem的type属性判断是否为每日任务,是则添加到dailyTaskItems中
             dailyTaskItems.clear();
+            if (newData == null)
+                return;
             for (TaskItem taskItem : newData) {
                 if (taskItem.getType() == 0) {
                     dailyTaskItems.add(taskItem);

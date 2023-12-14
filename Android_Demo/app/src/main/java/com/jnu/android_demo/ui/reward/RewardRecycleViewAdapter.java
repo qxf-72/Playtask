@@ -41,7 +41,7 @@ public class RewardRecycleViewAdapter extends RecyclerView.Adapter<RewardRecycle
     public void onBindViewHolder(@NonNull RewardRecycleViewAdapter.MyViewHolder holder, int position) {
         // 获取当前项的数据
         RewardItem rewardItem = rewardItems.get(position);
-        holder.rewardName.setText(rewardItem.getRewardName());
+        holder.rewardName.setText(rewardItem.getName());
         if (rewardItem.getType() == 0) {
             holder.rewardAmount.setText("0/1");
         } else {

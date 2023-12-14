@@ -24,9 +24,11 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.jnu.android_demo.MainActivity;
 import com.jnu.android_demo.R;
 import com.jnu.android_demo.data.TaskItem;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -42,8 +44,14 @@ public class TaskViewFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 创建ViewModel实例，和子Fragment共享数据
         viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
-        viewModel.setDataList(new ArrayList<>());
+
+        // 从数据库中获取数据
+        viewModel.setDataList((ArrayList<TaskItem>) MainActivity.mDBMaster.mTaskDAO.queryDataList());
+        if(viewModel.getDataList() == null) {
+            viewModel.setDataList(new ArrayList<>());
+        }
     }
 
 
@@ -88,16 +96,18 @@ public class TaskViewFragment extends Fragment {
 
                         // 添加数据
                         TaskItem taskItem = new TaskItem(
+                                new Timestamp(System.currentTimeMillis()),
                                 intent.getStringExtra("task_name"),
                                 intent.getIntExtra("task_score", 0),
                                 intent.getIntExtra("task_type", 0),
                                 intent.getIntExtra("task_amount", 0),
                                 0
                         );
+                        // 插入数据库
+                        taskItem.setId(MainActivity.mDBMaster.mTaskDAO.insertData(taskItem));
+
+                        // 更新内存中的数据
                         viewModel.addData(taskItem);
-
-                    } else if (result.getResultCode() == requireActivity().RESULT_CANCELED) {
-
                     }
                 });
 

@@ -54,6 +54,8 @@ public class WeeklyTaskViewFragment extends Fragment {
         viewModel.getDataList().observe(getViewLifecycleOwner(), newData -> {
             // 根据数据类型筛选出每周任务
             weeklyTaskItems.clear();
+            if (newData == null)
+                return;
             for (TaskItem taskItem : newData) {
                 if (taskItem.getType() == 1) {
                     weeklyTaskItems.add(taskItem);

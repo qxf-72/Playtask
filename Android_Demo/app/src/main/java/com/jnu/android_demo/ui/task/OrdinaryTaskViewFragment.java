@@ -54,6 +54,8 @@ public class OrdinaryTaskViewFragment extends Fragment {
         viewModel.getDataList().observe(getViewLifecycleOwner(), newData -> {
             // 根据TaskItem的type属性判断是否为普通任务
             ordinaryTaskItems.clear();
+            if (newData == null)
+                return;
             for (TaskItem taskItem : newData) {
                 if (taskItem.getType() == 2) {
                     ordinaryTaskItems.add(taskItem);

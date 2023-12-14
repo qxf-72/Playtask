@@ -21,9 +21,11 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jnu.android_demo.MainActivity;
 import com.jnu.android_demo.R;
 import com.jnu.android_demo.data.RewardItem;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -31,7 +33,8 @@ import java.util.Objects;
 public class RewardViewFragment extends Fragment {
     private ActivityResultLauncher<Intent> addItem_launcher;
     private RecyclerView recyclerView;
-    private ArrayList<RewardItem> rewardItems = new ArrayList<>();
+    // 从数据库中获取数据
+    private ArrayList<RewardItem> rewardItems;
 
 
     public RewardViewFragment() {
@@ -41,13 +44,18 @@ public class RewardViewFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 导入数据库中的数据
+        rewardItems = (ArrayList<RewardItem>) MainActivity.mDBMaster.mRewardDAO.queryDataList();
+        if (rewardItems == null) {
+            rewardItems = new ArrayList<>();
+        }
     }
 
 
     /**
      * 在创建视图时加载布局
      */
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint({"NotifyDataSetChanged", "UseCompatLoadingForDrawables"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -86,17 +94,20 @@ public class RewardViewFragment extends Fragment {
                         if (intent == null) {
                             throw new IllegalStateException("Unexpected value: " + result);
                         }
-
                         String name = intent.getStringExtra("name");
                         int score = intent.getIntExtra("score", 0);
                         int type = intent.getIntExtra("type", 0);
+
+                        RewardItem rewardItem = new RewardItem(new Timestamp(System.currentTimeMillis()), name, score, type, 0);
+
+                        // 插入数据库
+                        rewardItem.setId(MainActivity.mDBMaster.mRewardDAO.insertData(rewardItem));
+
                         // 添加数据
-                        rewardItems.add(new RewardItem(name, 0, score, type));
+                        rewardItems.add(rewardItem);
 
                         // 更新recycleView
                         taskRecycleViewAdapter.notifyDataSetChanged();
-
-                    } else if (result.getResultCode() == requireActivity().RESULT_CANCELED) {
 
                     }
                 });

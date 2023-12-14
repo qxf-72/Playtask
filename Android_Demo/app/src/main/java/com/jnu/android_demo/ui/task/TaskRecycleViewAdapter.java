@@ -45,8 +45,8 @@ public class TaskRecycleViewAdapter extends RecyclerView.Adapter<TaskRecycleView
     public void onBindViewHolder(@NonNull TaskRecycleViewAdapter.MyViewHolder holder, int position) {
         // 获取当前项的数据
         TaskItem taskItem = taskItems.get(position);
-        holder.taskName.setText(taskItem.getTaskName());
-        holder.amount.setText(taskItem.getFinishedAmount() + "/" + taskItem.getAmount());
+        holder.taskName.setText(taskItem.getName());
+        holder.amount.setText(taskItem.getFinishedAmount() + "/" + taskItem.getTotalAmount());
         holder.score.setText("+" + taskItem.getScore());
     }
 
