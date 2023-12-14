@@ -25,6 +25,7 @@ import java.util.ArrayList;
 public class TaskRecycleViewAdapter extends RecyclerView.Adapter<TaskRecycleViewAdapter.MyViewHolder> {
     private Context context;
     private ArrayList<TaskItem> taskItems;
+    // 单击和长按监听器
     private AdapterView.OnItemClickListener onItemClickListener;
     private AdapterView.OnItemLongClickListener onItemLongClickListener;
 
@@ -60,7 +61,6 @@ public class TaskRecycleViewAdapter extends RecyclerView.Adapter<TaskRecycleView
                 onItemClickListener.onItemClick(null, view, position, holder.getItemId());
             }
         });
-
         holder.itemView.setOnLongClickListener(view -> {
             if (onItemLongClickListener != null) {
                 onItemLongClickListener.onItemLongClick(null, view, position, holder.getItemId());

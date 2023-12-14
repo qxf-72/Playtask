@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,9 @@ import java.util.ArrayList;
 public class RewardRecycleViewAdapter extends RecyclerView.Adapter<RewardRecycleViewAdapter.MyViewHolder> {
     private Context context;
     private ArrayList<RewardItem> rewardItems;
+    // 单击和长按监听器
+    private AdapterView.OnItemClickListener onItemClickListener;
+    private AdapterView.OnItemLongClickListener onItemLongClickListener;
 
     public RewardRecycleViewAdapter(Context context, ArrayList<RewardItem> rewardItems) {
         this.context = context;
@@ -48,6 +52,23 @@ public class RewardRecycleViewAdapter extends RecyclerView.Adapter<RewardRecycle
             holder.rewardAmount.setText(rewardItem.getFinishedAmount() + " / ∞");
         }
         holder.rewardScore.setText("-" + rewardItem.getScore());
+
+
+        // 设置单击和长按监听器
+        holder.itemView.setOnClickListener(view -> {
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(null, view, position, holder.getItemId());
+            }
+        });
+        holder.itemView.setOnLongClickListener(view -> {
+            if (onItemLongClickListener != null) {
+                onItemLongClickListener.onItemLongClick(null, view, position, holder.getItemId());
+                return true; // 返回 true 表示消费了长按事件，不再触发单击事件
+            }
+            return false;
+        });
+
+
     }
 
     /**
@@ -57,6 +78,22 @@ public class RewardRecycleViewAdapter extends RecyclerView.Adapter<RewardRecycle
     public int getItemCount() {
         return rewardItems.size();
     }
+
+
+    /**
+     * 设置单击监听器
+     */
+    public void setOnItemClickListener(AdapterView.OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
+
+    /**
+     * 设置长按监听器
+     */
+    public void setOnItemLongClickListener(AdapterView.OnItemLongClickListener listener) {
+        this.onItemLongClickListener = listener;
+    }
+
 
     /**
      * 任务列表的ViewHolder

@@ -143,7 +143,7 @@ public class WeeklyTaskViewFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("删除任务")
                 .setMessage("是否删除该项任务？")
-                .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getResources().getString(R.string.text_confirm), new DialogInterface.OnClickListener() {
                     @SuppressLint("NotifyDataSetChanged")
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -161,7 +161,7 @@ public class WeeklyTaskViewFragment extends Fragment {
                         dialog.dismiss();
                     }
                 })
-                .setNegativeButton("否", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getResources().getString(R.string.text_cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // 关闭对话框

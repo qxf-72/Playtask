@@ -16,6 +16,7 @@ import com.jnu.android_demo.R;
 
 public class AddTaskItemActivity extends AppCompatActivity {
     private TextView textView_type;
+    Intent intent = new Intent();
 
     @SuppressLint("CutPasteId")
     @Override
@@ -33,6 +34,9 @@ public class AddTaskItemActivity extends AppCompatActivity {
         // 获取从别的页面传递过来的数据
         Intent intentFromOther = getIntent();
         if (null != intentFromOther && intentFromOther.hasExtra("position")) {
+
+            intent.putExtra("position", intentFromOther.getIntExtra("position", 0));
+
             editText_title.setText(intentFromOther.getStringExtra("name"));
             editText_score.setText(String.valueOf(intentFromOther.getIntExtra("score", 0)));
             editText_total_amount.setText(String.valueOf(intentFromOther.getIntExtra("total_amount", 0)));
@@ -69,7 +73,6 @@ public class AddTaskItemActivity extends AppCompatActivity {
 
         // 为确定按钮设置监听
         findViewById(R.id.button_add_task_item_ok).setOnClickListener(v -> {
-            Intent intent = new Intent();
 
             // 要求用户输入任务类型
             if (textView_type.getText().toString().equals(getResources().getString(R.string.text_task_type))) {

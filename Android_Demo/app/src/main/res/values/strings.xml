@@ -58,4 +58,6 @@
     <string name="text_nothing_to_show">Nothing to show</string>
     <string name="text_reward_points_spent">消耗的成就点数</string>
     <string name="text_once">单次</string>
+    <string name="text_confirm">确认</string>
+    <string name="text_repeatedly">多次</string>
 </resources>

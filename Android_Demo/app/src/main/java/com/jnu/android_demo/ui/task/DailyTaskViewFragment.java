@@ -57,6 +57,7 @@ public class DailyTaskViewFragment extends Fragment {
         recyclerView = rootView.findViewById(R.id.recycle_view_daily_task);
         TaskRecycleViewAdapter taskRecycleViewAdapter = new TaskRecycleViewAdapter(requireActivity(), dailyTaskItems);
 
+        // 设置单击和长按监听器
         taskRecycleViewAdapter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -143,7 +144,7 @@ public class DailyTaskViewFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("删除任务")
                 .setMessage("是否删除该项任务？")
-                .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getResources().getString(R.string.text_confirm), new DialogInterface.OnClickListener() {
                     @SuppressLint("NotifyDataSetChanged")
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -161,7 +162,7 @@ public class DailyTaskViewFragment extends Fragment {
                         dialog.dismiss();
                     }
                 })
-                .setNegativeButton("否", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getResources().getString(R.string.text_cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // 关闭对话框

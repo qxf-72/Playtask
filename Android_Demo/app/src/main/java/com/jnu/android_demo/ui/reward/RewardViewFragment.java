@@ -2,6 +2,7 @@ package com.jnu.android_demo.ui.reward;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -32,8 +34,8 @@ import java.util.Objects;
 
 public class RewardViewFragment extends Fragment {
     private ActivityResultLauncher<Intent> addItem_launcher;
+    private ActivityResultLauncher<Intent> updateItem_launcher;
     private RecyclerView recyclerView;
-    // 从数据库中获取数据
     private ArrayList<RewardItem> rewardItems;
 
 
@@ -80,11 +82,28 @@ public class RewardViewFragment extends Fragment {
         // 初始化recycleView
         recyclerView = rootView.findViewById(R.id.recycle_view_reward_task);
         RewardRecycleViewAdapter taskRecycleViewAdapter = new RewardRecycleViewAdapter(requireActivity(), rewardItems);
+        // 设置单击和长按监听器
+        taskRecycleViewAdapter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // 处理点击事件——弹出对话框，确认是否兑换
+                showRewardConfirmationDialog(position);
+            }
+        });
+        taskRecycleViewAdapter.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                // 处理长按事件——弹出menu，选择编辑或删除
+                showPopupMenuOnItemLongClick(view, position);
+                return true;
+            }
+        });
+
         recyclerView.setAdapter(taskRecycleViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
 
-        // 利用ActivityResultLauncher来获取从AddRewardItemActivity返回的数据
+        // 获取从AddRewardItemActivity返回的数据
         addItem_launcher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -109,6 +128,28 @@ public class RewardViewFragment extends Fragment {
                         // 更新recycleView
                         taskRecycleViewAdapter.notifyDataSetChanged();
 
+                    }
+                });
+        // 获取从AddRewardItemActivity返回的数据，来更新数据
+        updateItem_launcher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == requireActivity().RESULT_OK) {
+                        Intent intent = result.getData();
+                        if (intent == null)
+                            return;
+
+                        int position = intent.getIntExtra("position", 0);
+                        // 修改数据
+                        RewardItem rewardItem = rewardItems.get(position);
+                        rewardItem.setTime(new Timestamp(System.currentTimeMillis()));
+                        rewardItem.setName(intent.getStringExtra("name"));
+                        rewardItem.setScore(intent.getIntExtra("score", 0));
+                        rewardItem.setType(intent.getIntExtra("type", 0));
+                        // 更新数据库
+                        MainActivity.mDBMaster.mRewardDAO.updateData((int) rewardItem.getId(), rewardItem);
+
+                        Objects.requireNonNull(recyclerView.getAdapter()).notifyItemChanged(position);
                     }
                 });
 
@@ -138,7 +179,7 @@ public class RewardViewFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_add) {
-            showPopupMenu(item.getActionView());
+            showPopupMenuOnClickAdd(item.getActionView());
             return true;
         } else if (id == android.R.id.home) {
             requireActivity().onBackPressed();
@@ -149,9 +190,9 @@ public class RewardViewFragment extends Fragment {
 
 
     /**
-     * 弹出菜单
+     * 点击“+”之后，执行弹出菜单
      */
-    private void showPopupMenu(View view) {
+    private void showPopupMenuOnClickAdd(View view) {
         String[] options = {"新建奖励", "排序"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
@@ -159,7 +200,6 @@ public class RewardViewFragment extends Fragment {
             switch (which) {
                 // 处理新建菜单项点击事件
                 case 0:
-                    // 跳转到BookItemDetailsActivity
                     Intent intent = new Intent(requireContext(), AddRewardItemActivity.class);
                     addItem_launcher.launch(intent);
                     break;
@@ -173,5 +213,77 @@ public class RewardViewFragment extends Fragment {
         builder.show();
     }
 
+    /**
+     * 长按Item，执行弹出菜单
+     */
+    private void showPopupMenuOnItemLongClick(View view, int position) {
+        String[] options = {"编辑", "删除"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setItems(options, (dialog, which) -> {
+            switch (which) {
+                // 处理编辑菜单项点击事件
+                case 0:
+                    Intent intentUpdate = new Intent(requireActivity(), AddRewardItemActivity.class);
+                    RewardItem rewardItem = rewardItems.get(position);
+                    intentUpdate.putExtra("position", position);
+                    intentUpdate.putExtra("name", rewardItem.getName());
+                    intentUpdate.putExtra("score", rewardItem.getScore());
+                    intentUpdate.putExtra("type", rewardItem.getType());
+
+                    updateItem_launcher.launch(intentUpdate);
+
+                    break;
+                // 处理删除菜单项点击事件
+                case 1:
+
+                    MainActivity.mDBMaster.mRewardDAO.deleteData((int) rewardItems.get(position).getId());
+                    rewardItems.remove(position);
+                    Objects.requireNonNull(recyclerView.getAdapter()).notifyItemRemoved(position);
+
+                    break;
+            }
+        });
+
+        builder.show();
+    }
+
+
+    /**
+     * 显示删除确认对话框
+     */
+    private void showRewardConfirmationDialog(int position) {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(requireContext());
+        builder.setTitle("满足奖励")
+                .setMessage("确定花费 " + rewardItems.get(position).getScore() + " 积分来满足该项奖励吗？")
+                .setPositiveButton(getResources().getString(R.string.text_confirm), new DialogInterface.OnClickListener() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        RewardItem rewardItem = rewardItems.get(position);
+
+                        if (rewardItem.getType() == 0) {
+                            // 单次
+                            MainActivity.mDBMaster.mRewardDAO.deleteData((int) rewardItem.getId());
+                            rewardItems.remove(position);
+                            Objects.requireNonNull(recyclerView.getAdapter()).notifyItemRemoved(position);
+                        } else {
+                            // 多次
+                            rewardItem.setFinishedAmount(rewardItem.getFinishedAmount() + 1);
+                            MainActivity.mDBMaster.mRewardDAO.updateData((int) rewardItem.getId(), rewardItem);
+                            Objects.requireNonNull(recyclerView.getAdapter()).notifyItemChanged(position);
+                        }
+
+                    }
+                })
+                .setNegativeButton(getResources().getString(R.string.text_cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // 关闭对话框
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+    }
 
 }
