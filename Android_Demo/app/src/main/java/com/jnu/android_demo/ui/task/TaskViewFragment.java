@@ -97,10 +97,10 @@ public class TaskViewFragment extends Fragment {
                         // 添加数据
                         TaskItem taskItem = new TaskItem(
                                 new Timestamp(System.currentTimeMillis()),
-                                intent.getStringExtra("task_name"),
-                                intent.getIntExtra("task_score", 0),
-                                intent.getIntExtra("task_type", 0),
-                                intent.getIntExtra("task_amount", 0),
+                                intent.getStringExtra("name"),
+                                intent.getIntExtra("score", 0),
+                                intent.getIntExtra("type", 0),
+                                intent.getIntExtra("total_amount", 0),
                                 0
                         );
                         // 插入数据库
