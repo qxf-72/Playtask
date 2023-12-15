@@ -95,7 +95,7 @@ public class TaskViewFragment extends Fragment {
         // 监听数据变化，更新UI
         countViewModel.getData().observe(getViewLifecycleOwner(), newData -> {
             TextView textView = rootView.findViewById(R.id.textview_count);
-            textView.setText("累计积分点：" + newData + "分");
+            textView.setText("总积分点：" + newData );
         });
 
 

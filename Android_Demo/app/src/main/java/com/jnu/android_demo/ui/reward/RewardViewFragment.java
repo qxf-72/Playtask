@@ -111,10 +111,10 @@ public class RewardViewFragment extends Fragment {
 
         // 屏幕底部显示累积积分Count
         TextView textView_count = rootView.findViewById(R.id.textview_count);
-        textView_count.setText("累计积分点："+countViewModel.getData()+ "分");
+        textView_count.setText("总积分点："+countViewModel.getData());
         // 监听Count数据变化
         countViewModel.getData().observe(getViewLifecycleOwner(), integer -> {
-            textView_count.setText("累计积分点：" + integer + "分");
+            textView_count.setText("总积分点：" + integer );
         });
 
 

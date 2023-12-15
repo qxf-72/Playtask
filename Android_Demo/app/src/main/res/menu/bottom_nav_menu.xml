@@ -12,6 +12,12 @@
         android:title="@string/title_reward" />
 
     <item
+        android:id="@id/navigation_count"
+        android:icon="@drawable/ic_count_grey_36dp"
+        android:title="@string/text_count"
+        />
+
+    <item
         android:id="@+id/navigation_me"
         android:icon="@drawable/ic_me_grey_36dp"
         android:title="@string/title_me" />

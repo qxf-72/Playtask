@@ -54,13 +54,15 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // 创建AppBarConfiguration对象，并将BottomNavigationView 的菜单ID传递给它
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_task, R.id.navigation_reward, R.id.navigation_me)
+                R.id.navigation_task, R.id.navigation_reward,R.id.navigation_count, R.id.navigation_me)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
     }
+
+
 
     @Override
     protected void onStart() {

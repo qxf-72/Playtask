@@ -9,7 +9,12 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * @author Xiaofeng Qiu
@@ -83,8 +88,126 @@ public class CountDAO {
         return mDatabase.update(TABLE_NAME, values, KEY_ID + "=" + id, null);
     }
 
+
     /**
-     * 查询一条数据
+     * 根据日期查询当日数据
+     */
+    public ArrayList<CountItem> queryDataByDay(Timestamp time) {
+        if (!DBConfig.HaveData(mDatabase, TABLE_NAME)) {
+            return null;
+        }
+        // 将 Timestamp 转换为日期字符串
+        @SuppressLint("SimpleDateFormat") String dateString = new SimpleDateFormat("yyyy-MM-dd").format(time);
+
+        // 查询日期部分匹配的数据
+        Cursor results = mDatabase.query(TABLE_NAME, new String[]{
+                        KEY_ID,
+                        KEY_TIME,
+                        KEY_NAME,
+                        KEY_SCORE
+                },
+                "SUBSTR(" + KEY_TIME + ", 1, 10) = ?", new String[]{dateString}, null, null, null);
+        return convertUtil(results);
+    }
+
+
+    /**
+     * 根据时间查询当周数据
+     */
+    public ArrayList<CountItem> queryDataByWeek(Timestamp time) {
+        if (!DBConfig.HaveData(mDatabase, TABLE_NAME)) {
+            return null;
+        }
+
+        // 获取传入时间所在周的起始日期（周一）和结束日期（周日）
+        LocalDateTime localDateTime = time.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime startDate = localDateTime.with(DayOfWeek.MONDAY);
+        LocalDateTime endDate = localDateTime.with(DayOfWeek.SUNDAY);
+
+        Date startDateDate = java.util.Date.from(startDate.atZone(ZoneId.systemDefault()).toInstant());
+        Date endDateDate = java.util.Date.from(endDate.atZone(ZoneId.systemDefault()).toInstant());
+
+
+        // 将日期转换为字符串
+        // 使用 DateTimeFormatter 格式化 LocalDateTime
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String startDateString = startDate.format(formatter);
+        String endDateString = endDate.format(formatter);
+
+        // 查询日期范围内的数据
+        Cursor results = mDatabase.query(TABLE_NAME, new String[]{
+                        KEY_ID,
+                        KEY_TIME,
+                        KEY_NAME,
+                        KEY_SCORE
+                },
+                KEY_TIME + " BETWEEN ? AND ?",
+                new String[]{startDateString + " 00:00:00", endDateString + " 23:59:59"},
+                null, null, null);
+
+        return convertUtil(results);
+    }
+
+
+    /**
+     * 根据时间查询当月数据
+     */
+    public ArrayList<CountItem> queryDataByMonth(Timestamp time) {
+        if (!DBConfig.HaveData(mDatabase, TABLE_NAME)) {
+            return null;
+        }
+
+        // 获取传入时间所在月的年月
+        LocalDateTime localDateTime = time.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+        // 获取传入时间所在月的年月
+        int year = localDateTime.getYear();
+        int month = localDateTime.getMonthValue();
+
+        // 查询年月范围内的数据
+        @SuppressLint("DefaultLocale") Cursor results = mDatabase.query(TABLE_NAME, new String[]{
+                        KEY_ID,
+                        KEY_TIME,
+                        KEY_NAME,
+                        KEY_SCORE
+                },
+                "strftime('%Y-%m', " + KEY_TIME + ") = ?",
+                new String[]{String.format("%04d-%02d", year, month)},
+                null, null, null);
+
+        return convertUtil(results);
+    }
+
+
+    /**
+     * 根据时间查询当年数据
+     */
+    public ArrayList<CountItem> queryDataByYear(Timestamp time) {
+        if (!DBConfig.HaveData(mDatabase, TABLE_NAME)) {
+            return null;
+        }
+
+        // 获取传入时间所在年的年份
+        LocalDateTime localDateTime = time.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        int year = localDateTime.getYear();
+
+        // 查询年份范围内的数据
+        @SuppressLint("DefaultLocale") Cursor results = mDatabase.query(TABLE_NAME, new String[]{
+                        KEY_ID,
+                        KEY_TIME,
+                        KEY_NAME,
+                        KEY_SCORE
+                },
+                "strftime('%Y', " + KEY_TIME + ") = ?",
+                new String[]{String.format("%04d", year)},
+                null, null, null);
+
+        return convertUtil(results);
+    }
+
+
+    /**
+     * 根据id查询一条数据
      */
     public ArrayList<CountItem> queryData(int id) {
         if (!DBConfig.HaveData(mDatabase, TABLE_NAME)) {

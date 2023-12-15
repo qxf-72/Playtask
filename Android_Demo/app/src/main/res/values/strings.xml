@@ -60,4 +60,8 @@
     <string name="text_once">单次</string>
     <string name="text_confirm">确认</string>
     <string name="text_repeatedly">多次</string>
+    <string name="text_count">统计</string>
+    <string name="text_income">收入</string>
+    <string name="text_expend">支出</string>
+    <string name="text_balance">结余</string>
 </resources>

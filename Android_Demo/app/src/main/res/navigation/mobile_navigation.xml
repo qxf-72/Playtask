@@ -18,6 +18,13 @@
         tools:layout="@layout/fragment_reward_view" />
 
     <fragment
+        android:id="@+id/navigation_count"
+        android:name="com.jnu.android_demo.ui.count.CountViewFragment"
+        android:label="@string/text_count"
+        tools:layout="@layout/fragment_count_view"
+        />
+
+    <fragment
         android:id="@+id/navigation_me"
         android:name="com.jnu.android_demo.ui.me.MeViewFragment"
         android:label="@string/title_me"
