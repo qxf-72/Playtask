@@ -1,4 +1,4 @@
-package com.jnu.android_demo.ui.task;
+package com.jnu.android_demo.util;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -8,7 +8,10 @@ import com.jnu.android_demo.data.TaskItem;
 
 import java.util.ArrayList;
 
-public class SharedViewModel extends ViewModel {
+/**
+ * 用于Task主界面和三个子界面之间共享数据
+ */
+public class TaskViewModel extends ViewModel {
     private MutableLiveData<ArrayList<TaskItem>> dataList = new MutableLiveData<>();
 
     public LiveData<ArrayList<TaskItem>> getDataList() {

@@ -1,5 +1,6 @@
 package com.jnu.android_demo.ui.task;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -27,6 +29,8 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.jnu.android_demo.MainActivity;
 import com.jnu.android_demo.R;
 import com.jnu.android_demo.data.TaskItem;
+import com.jnu.android_demo.util.CountViewModel;
+import com.jnu.android_demo.util.TaskViewModel;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -35,7 +39,8 @@ import java.util.Objects;
 public class TaskViewFragment extends Fragment {
     private final String[] titles = new String[]{"每日任务", "每周任务", "普通任务"};
     private ActivityResultLauncher<Intent> addItem_launcher;
-    private SharedViewModel viewModel;
+    private TaskViewModel taskViewModel;
+    private CountViewModel countViewModel;
 
 
     public TaskViewFragment() {
@@ -45,16 +50,19 @@ public class TaskViewFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 创建ViewModel实例，和子Fragment共享数据
-        viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+        taskViewModel = new ViewModelProvider(requireActivity()).get(TaskViewModel.class);
+        // 共享统计数据
+        countViewModel = new ViewModelProvider(requireActivity()).get(CountViewModel.class);
 
         // 从数据库中获取数据
-        viewModel.setDataList((ArrayList<TaskItem>) MainActivity.mDBMaster.mTaskDAO.queryDataList());
-        if(viewModel.getDataList() == null) {
-            viewModel.setDataList(new ArrayList<>());
+        taskViewModel.setDataList((ArrayList<TaskItem>) MainActivity.mDBMaster.mTaskDAO.queryDataList());
+        if (taskViewModel.getDataList() == null) {
+            taskViewModel.setDataList(new ArrayList<>());
         }
     }
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -84,6 +92,13 @@ public class TaskViewFragment extends Fragment {
         ).attach();
 
 
+        // 监听数据变化，更新UI
+        countViewModel.getData().observe(getViewLifecycleOwner(), newData -> {
+            TextView textView = rootView.findViewById(R.id.textview_count);
+            textView.setText("累计积分点：" + newData + "分");
+        });
+
+
         // 利用ActivityResultLauncher来获取从AddTaskItemActivity返回的数据
         addItem_launcher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -107,7 +122,8 @@ public class TaskViewFragment extends Fragment {
                         taskItem.setId(MainActivity.mDBMaster.mTaskDAO.insertData(taskItem));
 
                         // 更新内存中的数据
-                        viewModel.addData(taskItem);
+                        ArrayList<TaskItem> taskItems = MainActivity.mDBMaster.mTaskDAO.queryDataList();
+                        taskViewModel.setDataList(taskItems);
                     }
                 });
 

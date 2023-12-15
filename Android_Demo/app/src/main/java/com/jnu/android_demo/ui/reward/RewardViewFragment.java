@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -19,13 +20,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jnu.android_demo.MainActivity;
 import com.jnu.android_demo.R;
+import com.jnu.android_demo.data.CountItem;
 import com.jnu.android_demo.data.RewardItem;
+import com.jnu.android_demo.util.CountViewModel;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -37,6 +41,7 @@ public class RewardViewFragment extends Fragment {
     private ActivityResultLauncher<Intent> updateItem_launcher;
     private RecyclerView recyclerView;
     private ArrayList<RewardItem> rewardItems;
+    CountViewModel countViewModel;
 
 
     public RewardViewFragment() {
@@ -51,13 +56,14 @@ public class RewardViewFragment extends Fragment {
         if (rewardItems == null) {
             rewardItems = new ArrayList<>();
         }
+        countViewModel = new ViewModelProvider(requireActivity()).get(CountViewModel.class);
     }
 
 
     /**
      * 在创建视图时加载布局
      */
-    @SuppressLint({"NotifyDataSetChanged", "UseCompatLoadingForDrawables"})
+    @SuppressLint({"NotifyDataSetChanged", "UseCompatLoadingForDrawables", "SetTextI18n"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -101,6 +107,15 @@ public class RewardViewFragment extends Fragment {
 
         recyclerView.setAdapter(taskRecycleViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
+
+
+        // 屏幕底部显示累积积分Count
+        TextView textView_count = rootView.findViewById(R.id.textview_count);
+        textView_count.setText("累计积分点："+countViewModel.getData()+ "分");
+        // 监听Count数据变化
+        countViewModel.getData().observe(getViewLifecycleOwner(), integer -> {
+            textView_count.setText("累计积分点：" + integer + "分");
+        });
 
 
         // 获取从AddRewardItemActivity返回的数据
@@ -261,6 +276,10 @@ public class RewardViewFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         RewardItem rewardItem = rewardItems.get(position);
+
+                        // 更新Count数据
+                        MainActivity.mDBMaster.mCountDAO.insertData(new CountItem(new Timestamp(System.currentTimeMillis()), rewardItem.getName(), -rewardItem.getScore()));
+                        countViewModel.setData(countViewModel.getData().getValue() - rewardItem.getScore());
 
                         if (rewardItem.getType() == 0) {
                             // 单次

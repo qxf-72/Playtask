@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jnu.android_demo.MainActivity;
 import com.jnu.android_demo.R;
 import com.jnu.android_demo.data.TaskItem;
+import com.jnu.android_demo.util.TaskViewModel;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ import java.util.Objects;
 public class WeeklyTaskViewFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private SharedViewModel viewModel;
+    private TaskViewModel viewModel;
     private ArrayList<TaskItem> weeklyTaskItems = new ArrayList<>();
     private ActivityResultLauncher<Intent> updateItem_launcher;
 
@@ -43,7 +44,7 @@ public class WeeklyTaskViewFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         weeklyTaskItems = new ArrayList<>();
-        viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(TaskViewModel.class);
     }
 
     @SuppressLint({"UseCompatLoadingForDrawables", "NotifyDataSetChanged"})
@@ -88,6 +89,8 @@ public class WeeklyTaskViewFragment extends Fragment {
         viewModel.getDataList().observe(getViewLifecycleOwner(), newData -> {
             // 根据数据类型筛选出每周任务
             weeklyTaskItems.clear();
+            if(newData == null)
+                return;
             for (TaskItem taskItem : newData) {
                 if (taskItem.getType() == 1 && taskItem.getFinishedAmount() < taskItem.getTotalAmount()) {
                     weeklyTaskItems.add(taskItem);

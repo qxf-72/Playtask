@@ -11,12 +11,17 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jnu.android_demo.MainActivity;
 import com.jnu.android_demo.R;
+import com.jnu.android_demo.data.CountItem;
 import com.jnu.android_demo.data.TaskItem;
+import com.jnu.android_demo.util.CountViewModel;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**
@@ -29,9 +34,13 @@ public class TaskRecycleViewAdapter extends RecyclerView.Adapter<TaskRecycleView
     private AdapterView.OnItemClickListener onItemClickListener;
     private AdapterView.OnItemLongClickListener onItemLongClickListener;
 
+    private CountViewModel countViewModel;
+
+
     public TaskRecycleViewAdapter(Context context, ArrayList<TaskItem> taskItems) {
         this.context = context;
         this.taskItems = taskItems;
+        countViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(CountViewModel.class);
     }
 
 
@@ -73,6 +82,10 @@ public class TaskRecycleViewAdapter extends RecyclerView.Adapter<TaskRecycleView
         holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             // 当 CheckBox 被点击时，更新数据源中该项的状态
             if (isChecked) {
+                // 统计
+                MainActivity.mDBMaster.mCountDAO.insertData(new CountItem(new Timestamp(System.currentTimeMillis()), taskItem.getName(), taskItem.getScore()));
+                countViewModel.setData(countViewModel.getData().getValue() + taskItem.getScore());
+
                 taskItem.setFinishedAmount(taskItem.getFinishedAmount() + 1);
                 if (taskItem.getFinishedAmount() >= taskItem.getTotalAmount()) {
                     MainActivity.mDBMaster.mTaskDAO.deleteData((int) taskItem.getId());
