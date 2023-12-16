@@ -64,4 +64,7 @@
     <string name="text_income">收入</string>
     <string name="text_expend">支出</string>
     <string name="text_balance">结余</string>
+    <string name="text_add_english">Add</string>
+    <string name="text_bill_cn">账单</string>
+    <string name="text_bill_with_blank">"账单  "</string>
 </resources>

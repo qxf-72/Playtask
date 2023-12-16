@@ -150,7 +150,7 @@ public class CountDAO {
 
 
     /**
-     * 根据时间查询当月数据
+     * 根据时间查询当月数据，按时间降序排列
      */
     public ArrayList<CountItem> queryDataByMonth(Timestamp time) {
         if (!DBConfig.HaveData(mDatabase, TABLE_NAME)) {
@@ -173,7 +173,7 @@ public class CountDAO {
                 },
                 "strftime('%Y-%m', " + KEY_TIME + ") = ?",
                 new String[]{String.format("%04d-%02d", year, month)},
-                null, null, null);
+                null, null, KEY_TIME + " DESC");
 
         return convertUtil(results);
     }

@@ -213,11 +213,11 @@ public class YearCountViewFragment extends Fragment {
         lineDataSet_future.setCircleHoleColor(Color.parseColor(colorStr));
 
         if (lineChart.equals(incomeChart)) {
-            textView_income.setText("本月收入：" + total);
+            textView_income.setText("今年收入：" + total);
         } else if (lineChart.equals(expendChart)) {
-            textView_expend.setText("本月支出：" + total);
+            textView_expend.setText("今年支出：" + total);
         } else if (lineChart.equals(balanceChart)) {
-            textView_balance.setText("本月结余：" + total);
+            textView_balance.setText("今年结余：" + total);
         }
 
         LineData lineData = new LineData(lineDataSet, lineDataSet_future);

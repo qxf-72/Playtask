@@ -40,9 +40,6 @@ public class MeViewFragment extends Fragment {
             // 获取主页面的Toolbar引用
             Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
             ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
-            // 显示返回按钮
-            Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-            Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayShowHomeEnabled(true);
         });
 
 

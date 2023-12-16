@@ -72,16 +72,10 @@ public class RewardViewFragment extends Fragment {
 
         // 表明Fragment会添加菜单项
         setHasOptionsMenu(true);
-
         rootView.post(() -> {
             // 获取主页面的Toolbar引用
             Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
             ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
-
-            // 显示返回按钮
-            Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-            Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayShowHomeEnabled(true);
-
         });
 
 
@@ -111,10 +105,10 @@ public class RewardViewFragment extends Fragment {
 
         // 屏幕底部显示累积积分Count
         TextView textView_count = rootView.findViewById(R.id.textview_count);
-        textView_count.setText("总积分点："+countViewModel.getData());
+        textView_count.setText("总积分点：" + countViewModel.getData());
         // 监听Count数据变化
         countViewModel.getData().observe(getViewLifecycleOwner(), integer -> {
-            textView_count.setText("总积分点：" + integer );
+            textView_count.setText("总积分点：" + integer);
         });
 
 
