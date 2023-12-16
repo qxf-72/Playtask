@@ -74,9 +74,6 @@ public class TaskViewFragment extends Fragment {
             // 获取主页面的Toolbar引用
             Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
             ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
-            // 显示返回按钮
-            Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-            Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setDisplayShowHomeEnabled(true);
         });
 
 
@@ -84,7 +81,7 @@ public class TaskViewFragment extends Fragment {
         ViewPager2 viewPager = rootView.findViewById(R.id.view_pager);
         TabLayout tabLayout = rootView.findViewById(R.id.tab_layout);
         // 创建适配器
-        FragmentAdapter fragmentAdapter = new FragmentAdapter(requireActivity().getSupportFragmentManager(), getLifecycle());
+        FragmentAdapter fragmentAdapter = new FragmentAdapter(getChildFragmentManager(), getLifecycle());
         viewPager.setAdapter(fragmentAdapter);
         // 将TabLayout和ViewPager2进行关联
         new TabLayoutMediator(tabLayout, viewPager,
@@ -95,7 +92,7 @@ public class TaskViewFragment extends Fragment {
         // 监听数据变化，更新UI
         countViewModel.getData().observe(getViewLifecycleOwner(), newData -> {
             TextView textView = rootView.findViewById(R.id.textview_count);
-            textView.setText("总积分点：" + newData );
+            textView.setText("总积分点：" + newData);
         });
 
 
@@ -132,7 +129,7 @@ public class TaskViewFragment extends Fragment {
 
 
     /**
-     * 加载toolbar菜单
+     * 在toolbar添加“+”
      */
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -147,6 +144,7 @@ public class TaskViewFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_add) {
+            // 处理“+”菜单项点击事件——显示弹出菜单
             showPopupMenu(item.getActionView());
             return true;
         } else if (id == android.R.id.home) {
