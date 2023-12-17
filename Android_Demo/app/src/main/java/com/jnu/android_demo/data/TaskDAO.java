@@ -31,6 +31,12 @@ public class TaskDAO {
     public static String KEY_TOTAL_AMOUNT = "total_amount";
     public static String KEY_FINISHED_AMOUNT = "finished_amount";
 
+    public static final int NO_SORT = 0;
+    public static final int TIME_ASC = 1;
+    public static final int TIME_DESC = 2;
+    public static final int SCORE_ASC = 3;
+    public static final int SCORE_DESC = 4;
+
     private SQLiteDatabase mDatabase;
     // 上下文
     private Context mContext;
@@ -116,10 +122,30 @@ public class TaskDAO {
     /**
      * 查询所有数据
      */
-    public ArrayList<TaskItem> queryDataList() {
+    public ArrayList<TaskItem> queryDataList(int MODE) {
         if (!DBConfig.HaveData(mDatabase, TABLE_NAME)) {
             return null;
         }
+        String orderBy = null;
+        switch (MODE) {
+            case NO_SORT:
+                break;
+            case TIME_ASC:
+                orderBy = KEY_TIME + " ASC";
+                break;
+            case TIME_DESC:
+                orderBy = KEY_TIME + " DESC";
+                break;
+            case SCORE_ASC:
+                orderBy = KEY_SCORE + " ASC";
+                break;
+            case SCORE_DESC:
+                orderBy = KEY_SCORE + " DESC";
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + MODE);
+        }
+
         Cursor results = mDatabase.query(TABLE_NAME, new String[]{
                         KEY_ID,
                         KEY_TIME,
@@ -128,7 +154,7 @@ public class TaskDAO {
                         KEY_TYPE,
                         KEY_TOTAL_AMOUNT,
                         KEY_FINISHED_AMOUNT},
-                null, null, null, null, null);
+                null, null, null, null, orderBy);
         return convertUtil(results);
     }
 

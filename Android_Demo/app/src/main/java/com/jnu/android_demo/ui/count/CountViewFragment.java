@@ -112,7 +112,6 @@ public class CountViewFragment extends Fragment {
             super(fragmentManager, lifecycle);
         }
 
-
         /**
          * 根据position创建Fragment
          */

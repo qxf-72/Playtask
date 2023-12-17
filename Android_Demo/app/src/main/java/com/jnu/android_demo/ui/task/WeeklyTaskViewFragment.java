@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jnu.android_demo.MainActivity;
 import com.jnu.android_demo.R;
+import com.jnu.android_demo.data.TaskDAO;
 import com.jnu.android_demo.data.TaskItem;
 import com.jnu.android_demo.util.TaskViewModel;
 
@@ -130,7 +131,7 @@ public class WeeklyTaskViewFragment extends Fragment {
                         MainActivity.mDBMaster.mTaskDAO.updateData((int) taskItem.getId(), taskItem);
 
                         // 更新内存中的数据
-                        viewModel.setDataList(MainActivity.mDBMaster.mTaskDAO.queryDataList());
+                        viewModel.setDataList(MainActivity.mDBMaster.mTaskDAO.queryDataList(TaskDAO.NO_SORT));
                     }
                 });
 
@@ -153,7 +154,7 @@ public class WeeklyTaskViewFragment extends Fragment {
                         // 同步到数据库
                         MainActivity.mDBMaster.mTaskDAO.deleteData((int) weeklyTaskItems.get(position).getId());
                         // 更新内存数据
-                        viewModel.setDataList(MainActivity.mDBMaster.mTaskDAO.queryDataList());
+                        viewModel.setDataList(MainActivity.mDBMaster.mTaskDAO.queryDataList(TaskDAO.NO_SORT));
                         if (viewModel.getDataList().getValue() == null) {
                             viewModel.setDataList(new ArrayList<>());
                         }

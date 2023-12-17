@@ -36,6 +36,7 @@ public class CountItem {
         return score;
     }
 
+
     /**
      * setter
      */

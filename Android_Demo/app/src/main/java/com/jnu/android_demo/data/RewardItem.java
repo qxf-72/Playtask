@@ -49,6 +49,7 @@ public class RewardItem {
         return type;
     }
 
+
     /**
      * setter
      */

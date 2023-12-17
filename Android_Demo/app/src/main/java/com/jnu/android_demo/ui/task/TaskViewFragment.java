@@ -28,13 +28,14 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.jnu.android_demo.MainActivity;
 import com.jnu.android_demo.R;
+import com.jnu.android_demo.data.TaskDAO;
 import com.jnu.android_demo.data.TaskItem;
 import com.jnu.android_demo.util.CountViewModel;
+import com.jnu.android_demo.util.CustomDialog;
 import com.jnu.android_demo.util.TaskViewModel;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class TaskViewFragment extends Fragment {
     private final String[] titles = new String[]{"每日任务", "每周任务", "普通任务"};
@@ -55,7 +56,7 @@ public class TaskViewFragment extends Fragment {
         countViewModel = new ViewModelProvider(requireActivity()).get(CountViewModel.class);
 
         // 从数据库中获取数据
-        taskViewModel.setDataList((ArrayList<TaskItem>) MainActivity.mDBMaster.mTaskDAO.queryDataList());
+        taskViewModel.setDataList((ArrayList<TaskItem>) MainActivity.mDBMaster.mTaskDAO.queryDataList(TaskDAO.NO_SORT));
         if (taskViewModel.getDataList() == null) {
             taskViewModel.setDataList(new ArrayList<>());
         }
@@ -119,7 +120,7 @@ public class TaskViewFragment extends Fragment {
                         taskItem.setId(MainActivity.mDBMaster.mTaskDAO.insertData(taskItem));
 
                         // 更新内存中的数据
-                        ArrayList<TaskItem> taskItems = MainActivity.mDBMaster.mTaskDAO.queryDataList();
+                        ArrayList<TaskItem> taskItems = MainActivity.mDBMaster.mTaskDAO.queryDataList(TaskDAO.NO_SORT);
                         taskViewModel.setDataList(taskItems);
                     }
                 });
@@ -156,7 +157,7 @@ public class TaskViewFragment extends Fragment {
 
 
     /**
-     * 显示弹出菜单
+     * 点击“+”之后，显示弹出菜单
      */
     private void showPopupMenu(View view) {
         String[] options = {"新建任务", "排序"};
@@ -170,9 +171,10 @@ public class TaskViewFragment extends Fragment {
                     Intent intent = new Intent(requireContext(), AddTaskItemActivity.class);
                     addItem_launcher.launch(intent);
                     break;
+
                 // 处理排序菜单项点击事件
                 case 1:
-
+                    CustomDialog.showCustomDialog(requireContext(), taskViewModel);
                     break;
             }
         });

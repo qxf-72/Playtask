@@ -46,6 +46,7 @@ public class CountDAO {
         mDatabase = db;
     }
 
+
     /**
      * 插入一条数据
      */
@@ -60,6 +61,7 @@ public class CountDAO {
         return mDatabase.insert(TABLE_NAME, null, values);
     }
 
+
     /**
      * 删除一条数据
      */
@@ -67,12 +69,14 @@ public class CountDAO {
         return mDatabase.delete(TABLE_NAME, KEY_ID + "=" + id, null);
     }
 
+
     /**
      * 删除所有数据
      */
     public long deleteAllData() {
         return mDatabase.delete(TABLE_NAME, null, null);
     }
+
 
     /**
      * 更新一条数据
@@ -223,6 +227,7 @@ public class CountDAO {
         return convertUtil(results);
     }
 
+
     /**
      * 查询所有数据
      */
@@ -239,6 +244,7 @@ public class CountDAO {
                 null, null, null, null, null);
         return convertUtil(results);
     }
+
 
     /**
      * 查询结果转换

@@ -26,6 +26,7 @@ public class DBMaster {
     public RewardDAO mRewardDAO;
     public CountDAO mCountDAO;
 
+
     /**
      * 构造函数
      */
@@ -35,6 +36,7 @@ public class DBMaster {
         mRewardDAO = new RewardDAO(mContext);
         mCountDAO = new CountDAO(mContext);
     }
+
 
     /**
      * 打开数据库
@@ -51,6 +53,7 @@ public class DBMaster {
         mRewardDAO.setDatabase(mDatabase);
         mCountDAO.setDatabase(mDatabase);
     }
+
 
     /**
      * 关闭数据库
@@ -74,6 +77,7 @@ public class DBMaster {
             TaskDAO.KEY_TOTAL_AMOUNT + " integer  not null , " +
             TaskDAO.KEY_FINISHED_AMOUNT + " integer not null" +
             ");";
+
 
     /**
      * 创建该数据库下Reward表的语句
@@ -104,10 +108,12 @@ public class DBMaster {
      */
     private static final String mTaskDelSql = "DROP TABLE IF EXISTS " + TaskDAO.TABLE_NAME;
 
+
     /**
      * 删除该数据库下Reward表的语句
      */
     private static final String mRewardDelSql = "DROP TABLE IF EXISTS " + RewardDAO.TABLE_NAME;
+
 
     /**
      * 删除该数据库下Count表的语句

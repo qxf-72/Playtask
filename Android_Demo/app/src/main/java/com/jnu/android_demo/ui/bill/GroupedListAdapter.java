@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 /**
  * @author Xiaofeng Qiu
+ * recycleview的适配器
  */
 public class GroupedListAdapter extends GroupedRecyclerViewAdapter {
     protected ArrayList<GroupEntity> mGroups;
@@ -68,6 +69,7 @@ public class GroupedListAdapter extends GroupedRecyclerViewAdapter {
         return R.layout.adapter_child;
     }
 
+
     /**
      * 绑定头部布局数据
      */
@@ -86,6 +88,7 @@ public class GroupedListAdapter extends GroupedRecyclerViewAdapter {
         GroupEntity entity = mGroups.get(groupPosition);
         holder.setText(R.id.tv_footer, entity.getFooter());
     }
+
 
     /**
      * 绑定子项布局数据

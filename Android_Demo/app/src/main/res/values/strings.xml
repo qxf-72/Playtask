@@ -67,7 +67,14 @@
     <string name="text_add_english">Add</string>
     <string name="text_bill_cn">账单</string>
     <string name="text_bill_with_blank">"账单  "</string>
-
+    <string name="select_sort_option1">测试1</string>
+    <string name="select_sort_option2">测试2</string>
+    <string name="text_select_order_object">选择排序对象</string>
+    <string name="text_select_order_direction">选择排序方式</string>
+    <string name="text_creation_ime">创建时间</string>
+    <string name="text_score_amount">积分大小</string>
+    <string name="text_asc">正序</string>
+    <string name="text_desc">倒序</string>
 
 
 </resources>

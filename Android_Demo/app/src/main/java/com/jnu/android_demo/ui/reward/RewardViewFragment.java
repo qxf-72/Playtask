@@ -28,8 +28,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jnu.android_demo.MainActivity;
 import com.jnu.android_demo.R;
 import com.jnu.android_demo.data.CountItem;
+import com.jnu.android_demo.data.RewardDAO;
 import com.jnu.android_demo.data.RewardItem;
 import com.jnu.android_demo.util.CountViewModel;
+import com.jnu.android_demo.util.CustomDialog;
+import com.jnu.android_demo.util.RewardViewModel;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -41,7 +44,9 @@ public class RewardViewFragment extends Fragment {
     private ActivityResultLauncher<Intent> updateItem_launcher;
     private RecyclerView recyclerView;
     private ArrayList<RewardItem> rewardItems;
-    CountViewModel countViewModel;
+
+    private RewardViewModel rewardViewModel;
+    private CountViewModel countViewModel;
 
 
     public RewardViewFragment() {
@@ -52,11 +57,12 @@ public class RewardViewFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 导入数据库中的数据
-        rewardItems = (ArrayList<RewardItem>) MainActivity.mDBMaster.mRewardDAO.queryDataList();
+        rewardItems = (ArrayList<RewardItem>) MainActivity.mDBMaster.mRewardDAO.queryDataList(RewardDAO.NO_SORT);
         if (rewardItems == null) {
             rewardItems = new ArrayList<>();
         }
         countViewModel = new ViewModelProvider(requireActivity()).get(CountViewModel.class);
+        rewardViewModel = new ViewModelProvider(requireActivity()).get(RewardViewModel.class);
     }
 
 
@@ -69,6 +75,7 @@ public class RewardViewFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_reward_view, container, false);
+
 
         // 表明Fragment会添加菜单项
         setHasOptionsMenu(true);
@@ -98,7 +105,6 @@ public class RewardViewFragment extends Fragment {
                 return true;
             }
         });
-
         recyclerView.setAdapter(taskRecycleViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
@@ -106,9 +112,19 @@ public class RewardViewFragment extends Fragment {
         // 屏幕底部显示累积积分Count
         TextView textView_count = rootView.findViewById(R.id.textview_count);
         textView_count.setText("总积分点：" + countViewModel.getData());
+
+
         // 监听Count数据变化
         countViewModel.getData().observe(getViewLifecycleOwner(), integer -> {
             textView_count.setText("总积分点：" + integer);
+        });
+
+
+        // 监听数据变化
+        rewardViewModel.getDataList().observe(getViewLifecycleOwner(), newData -> {
+            rewardItems.clear();
+            rewardItems.addAll(newData);
+            Objects.requireNonNull(recyclerView.getAdapter()).notifyDataSetChanged();
         });
 
 
@@ -168,6 +184,7 @@ public class RewardViewFragment extends Fragment {
         itemDecoration.setDrawable(requireContext().getResources().getDrawable(R.drawable.divider_drawable));
         recyclerView.addItemDecoration(itemDecoration);
 
+
         return rootView;
     }
 
@@ -180,6 +197,7 @@ public class RewardViewFragment extends Fragment {
         inflater.inflate(R.menu.menu_main, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
+
 
     /**
      * 处理toolbar菜单点击事件
@@ -214,13 +232,14 @@ public class RewardViewFragment extends Fragment {
                     break;
                 // 处理排序菜单项点击事件
                 case 1:
-
+                    CustomDialog.showCustomDialog(requireContext(), rewardViewModel);
                     break;
             }
         });
 
         builder.show();
     }
+
 
     /**
      * 长按Item，执行弹出菜单

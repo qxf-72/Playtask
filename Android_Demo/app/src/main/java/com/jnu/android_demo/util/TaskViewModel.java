@@ -21,12 +21,4 @@ public class TaskViewModel extends ViewModel {
     public void setDataList(ArrayList<TaskItem> newData) {
         dataList.setValue(newData);
     }
-
-    public void addData(TaskItem taskItem) {
-        ArrayList<TaskItem> newData = dataList.getValue();
-        if (newData != null) {
-            newData.add(taskItem);
-        }
-        dataList.setValue(newData);
-    }
 }
