@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Android_Demo</string>
+    <string name="app_name">PlayTask</string>
     <string name="text_ok">确认</string>
     <string name="text_cancel">取消</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -67,4 +67,7 @@
     <string name="text_add_english">Add</string>
     <string name="text_bill_cn">账单</string>
     <string name="text_bill_with_blank">"账单  "</string>
+
+
+
 </resources>

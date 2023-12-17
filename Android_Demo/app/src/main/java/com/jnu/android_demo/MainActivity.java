@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     // 声明数据库操作实例
     @SuppressLint("StaticFieldLeak")
     public static DBMaster mDBMaster;
+    // CountViewModel实例——用于监测Count数据的变化
     private CountViewModel countViewModel;
 
 
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 设置Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(toolbar);
 
         // 底部导航栏类

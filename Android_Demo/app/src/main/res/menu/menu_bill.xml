@@ -4,6 +4,6 @@
     <item
         android:id="@+id/action_bill"
         android:title="@string/text_bill_cn"
-        android:icon="@drawable/ic_text_bill"
+        android:icon="@drawable/ic_text_bill_white"
         app:showAsAction="ifRoom" />
 </menu>

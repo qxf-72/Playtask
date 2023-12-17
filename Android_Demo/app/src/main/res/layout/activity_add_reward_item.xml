@@ -41,11 +41,12 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextText_title"
         app:layout_constraintVertical_bias="0.051" />
 
+
     <TextView
         android:id="@+id/textView_reward_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
+        android:layout_marginStart="60dp"
         android:text="@string/text_once"
 
 
@@ -53,7 +54,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/editTextNumber_reward_point"
         app:layout_constraintStart_toEndOf="@+id/editTextNumber_reward_point"
         app:layout_constraintTop_toTopOf="@+id/editTextNumber_reward_point"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.833" />
 
     <ImageView
         android:id="@+id/imageView_triangle_gray"
@@ -63,11 +64,10 @@
         android:src="@drawable/ic_drop_down_box"
         app:layout_constraintBottom_toBottomOf="@+id/textView_reward_type"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.909"
         app:layout_constraintStart_toEndOf="@+id/textView_reward_type"
         app:layout_constraintTop_toTopOf="@+id/textView_reward_type"
         app:layout_constraintVertical_bias="1.0" />
-
 
     <Button
         android:id="@+id/button_add_reward_item_ok"

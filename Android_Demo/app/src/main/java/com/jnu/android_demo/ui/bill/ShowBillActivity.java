@@ -53,6 +53,7 @@ public class ShowBillActivity extends AppCompatActivity {
         // toolbar中设置返回按钮
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("账单");
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
