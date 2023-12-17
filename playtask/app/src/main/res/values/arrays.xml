@@ -1,0 +1,17 @@
+<resources>
+
+    <!-- 定义选项数组1 -->
+    <string-array name="options1">
+        <item>@string/text_creation_ime</item>
+        <item>@string/text_score_amount</item>
+        <!-- 添加更多选项 -->
+    </string-array>
+
+    <!-- 定义选项数组2 -->
+    <string-array name="options2">
+        <item>@string/text_asc</item>
+        <item>@string/text_desc</item>
+        <!-- 添加更多选项 -->
+    </string-array>
+
+</resources>

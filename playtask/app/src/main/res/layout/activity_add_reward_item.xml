@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.reward.AddRewardItemActivity">
+
+
+    <EditText
+        android:id="@+id/editTextText_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:ems="10"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:text="@string/text_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.054"
+        tools:ignore="VisualLintTextFieldSize" />
+
+    <EditText
+        android:id="@+id/editTextNumber_reward_point"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="number"
+        android:minHeight="48dp"
+        android:text="@string/text_reward_points_spent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText_title"
+        app:layout_constraintVertical_bias="0.051" />
+
+
+    <TextView
+        android:id="@+id/textView_reward_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:text="@string/text_once"
+
+
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextNumber_reward_point"
+        app:layout_constraintStart_toEndOf="@+id/editTextNumber_reward_point"
+        app:layout_constraintTop_toTopOf="@+id/editTextNumber_reward_point"
+        app:layout_constraintVertical_bias="0.833" />
+
+    <ImageView
+        android:id="@+id/imageView_triangle_gray"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:layout_marginEnd="12dp"
+        android:src="@drawable/ic_drop_down_box"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_reward_type"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.909"
+        app:layout_constraintStart_toEndOf="@+id/textView_reward_type"
+        app:layout_constraintTop_toTopOf="@+id/textView_reward_type"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/button_add_reward_item_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/rounded_button"
+        android:text="@string/text_ok"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.278"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNumber_reward_point"
+        app:layout_constraintVertical_bias="0.309" />
+
+    <Button
+        android:id="@+id/button_add_reward_item_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_button"
+        android:text="@string/text_cancel"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/button_add_reward_item_ok"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.402"
+        app:layout_constraintStart_toEndOf="@+id/button_add_reward_item_ok"
+        app:layout_constraintTop_toTopOf="@+id/button_add_reward_item_ok" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
