@@ -1,9 +1,0 @@
-<!--为toolbar设置“账单”选项-->
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/action_bill"
-        android:title="@string/text_bill_cn"
-        android:icon="@drawable/ic_text_bill_white"
-        app:showAsAction="ifRoom" />
-</menu>
