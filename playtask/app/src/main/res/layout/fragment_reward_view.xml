@@ -41,7 +41,7 @@
             android:id="@+id/textView_hint_2"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:text="弗洛伊德认为，人的潜意识中存储这很多原始的欲望和冲动"
+            android:text="弗洛伊德认为，人的潜意识中存储着很多原始的欲望和冲动"
             android:gravity="center"
             android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
