@@ -56,13 +56,15 @@ public class RewardViewFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // 导入数据库中的数据
-        rewardItems = (ArrayList<RewardItem>) MainActivity.mDBMaster.mRewardDAO.queryDataList(RewardDAO.NO_SORT);
-        if (rewardItems == null) {
-            rewardItems = new ArrayList<>();
-        }
+        rewardItems=new ArrayList<>();
+
         countViewModel = new ViewModelProvider(requireActivity()).get(CountViewModel.class);
         rewardViewModel = new ViewModelProvider(requireActivity()).get(RewardViewModel.class);
+
+        rewardViewModel.setDataList(MainActivity.mDBMaster.mRewardDAO.queryDataList(RewardDAO.NO_SORT));
+        if(rewardViewModel.getDataList() == null){
+            rewardViewModel.setDataList(new ArrayList<>());
+        }
     }
 
 
