@@ -9,7 +9,7 @@
     <string name="title_me">我</string>
     <string name="text_title">标题</string>
     <string name="text_reward_point">完成任务获得的成就点数</string>
-    <string name="text_task_amount">数量（可选）</string>
+    <string name="text_task_amount">任务数量</string>
     <string name="text_task_type">任务类型</string>
     <string name="text_task_tag_description">通过标签对任务进行分类</string>
     <string name="title_activity_add_reward_item">AddRewardItemActivity</string>
@@ -75,6 +75,11 @@
     <string name="text_score_amount">积分大小</string>
     <string name="text_asc">正序</string>
     <string name="text_desc">倒序</string>
+    <string name="text_daily_task">每日任务</string>
+    <string name="text_weekly_task">每周任务</string>
+    <string name="text_ordinary_task">普通任务</string>
+    <string name="text_non_task">无任务</string>
+    <string name="text_yesterday_you_said_tomorrow">Yesterday , you said tomorrow.</string>
 
 
 </resources>

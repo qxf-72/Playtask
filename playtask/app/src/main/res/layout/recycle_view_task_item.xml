@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/recycle_view_daily_task"
     android:layout_width="match_parent"
-    android:layout_height="45dp"
+    android:layout_height="50dp"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
     android:orientation="horizontal">
 
     <CheckBox
         android:id="@+id/checkBox_in_recycle_view"
-        android:layout_width="45dp"
+        android:layout_width="50dp"
         android:layout_height="match_parent"
         android:layout_marginStart="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,10 +22,10 @@
 
     <TextView
         android:id="@+id/textView_task_name_in_recycle_view"
-        android:layout_width="wrap_content"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textSize="15sp"
+        android:text="@string/text_nothing_to_show"
+        android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="@+id/checkBox_in_recycle_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -35,9 +35,9 @@
 
     <TextView
         android:id="@+id/textView_task_amount_in_recycle_view"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="@string/text_nothing_to_show"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/checkBox_in_recycle_view"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,10 +48,11 @@
 
     <TextView
         android:id="@+id/textView_task_score_in_recycle_view"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
-        android:text="TextView"
+        android:gravity="right"
+        android:text="@string/text_nothing_to_show"
         android:textSize="20sp"
         android:textColor="#2196F3"
         app:layout_constraintBottom_toBottomOf="parent"

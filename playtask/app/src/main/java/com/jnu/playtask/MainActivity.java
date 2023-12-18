@@ -75,8 +75,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         countViewModel.setData(total);
-
-//        mDBMaster.mTaskDAO.insertData(new TaskItem(new Timestamp(System.currentTimeMillis()), "", 0, 0, 0, 0));
     }
 
 }

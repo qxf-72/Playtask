@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_gray"
     tools:context=".ui.count.MonthCountViewFragment">
 
     <ScrollView
@@ -21,6 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
+                android:background="@color/white"
                 android:text="@string/text_income"
                 android:textSize="15sp"
                 android:textStyle="bold" />
@@ -30,20 +32,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
+                android:background="@color/white"
                 android:text="@string/text_nothing_to_show"
                 android:textSize="15sp" />
 
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/day_income_chart"
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="200dp"
+                android:background="@color/white" />
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="30dp"
+                android:background="@color/white"
                 android:text="@string/text_expend"
                 android:textSize="15sp"
                 android:textStyle="bold" />
@@ -53,20 +58,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
+                android:background="@color/white"
                 android:text="@string/text_nothing_to_show"
                 android:textSize="15sp" />
 
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/day_expend_chart"
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="200dp"
+                android:background="@color/white" />
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="30dp"
+                android:background="@color/white"
                 android:text="@string/text_balance"
                 android:textSize="15sp"
                 android:textStyle="bold" />
@@ -76,13 +84,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
+                android:background="@color/white"
                 android:text="@string/text_nothing_to_show"
                 android:textSize="15sp" />
 
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/day_balance_chart"
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="200dp"
+                android:background="@color/white" />
 
 
         </LinearLayout>

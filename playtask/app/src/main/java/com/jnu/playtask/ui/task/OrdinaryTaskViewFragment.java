@@ -48,6 +48,7 @@ public class OrdinaryTaskViewFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(TaskViewModel.class);
     }
 
+
     @SuppressLint({"UseCompatLoadingForDrawables", "NotifyDataSetChanged"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -91,16 +92,25 @@ public class OrdinaryTaskViewFragment extends Fragment {
         viewModel.getDataList().observe(getViewLifecycleOwner(), newData -> {
             // 根据TaskItem的type属性判断是否为普通任务
             ordinaryTaskItems.clear();
-            if (newData == null)
-                return;
+            if (newData == null) {
+                newData = new ArrayList<>();
+            }
             for (TaskItem taskItem : newData) {
                 if (taskItem.getType() == 2 && taskItem.getFinishedAmount() < taskItem.getTotalAmount()) {
                     ordinaryTaskItems.add(taskItem);
                 }
             }
+            if (ordinaryTaskItems.isEmpty()) {
+                rootView.findViewById(R.id.textView_hint_1).setVisibility(View.VISIBLE);
+                rootView.findViewById(R.id.textView_hint_2).setVisibility(View.VISIBLE);
+            } else {
+                rootView.findViewById(R.id.textView_hint_1).setVisibility(View.GONE);
+                rootView.findViewById(R.id.textView_hint_2).setVisibility(View.GONE);
+            }
             // 更新RecyclerView数据
             Objects.requireNonNull(recyclerView.getAdapter()).notifyDataSetChanged();
         });
+
 
         // 设置分割线
         DividerItemDecoration itemDecoration = new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL);
@@ -138,6 +148,7 @@ public class OrdinaryTaskViewFragment extends Fragment {
 
         return rootView;
     }
+
 
     /**
      * 显示删除确认对话框

@@ -3,12 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_gray"
     tools:context=".ui.count.YearCountViewFragment">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:ignore="UselessParent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -19,64 +21,78 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:background="@color/white"
                 android:text="@string/text_income"
-                android:textStyle="bold"
                 android:textSize="15sp"
-                android:layout_marginStart="5dp" />
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/textView_income"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:layout_marginStart="5dp"
+                android:background="@color/white"
                 android:text="@string/text_nothing_to_show"
-                android:layout_marginStart="5dp" />
+                android:textSize="15sp" />
+
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/day_income_chart"
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="200dp"
+                android:background="@color/white" />
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="30dp"
+                android:background="@color/white"
                 android:text="@string/text_expend"
-                android:textStyle="bold"
                 android:textSize="15sp"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="5dp" />
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/textView_expend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:layout_marginStart="5dp"
+                android:background="@color/white"
                 android:text="@string/text_nothing_to_show"
-                android:layout_marginStart="5dp" />
+                android:textSize="15sp" />
+
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/day_expend_chart"
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="200dp"
+                android:background="@color/white" />
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="30dp"
+                android:background="@color/white"
                 android:text="@string/text_balance"
-                android:textStyle="bold"
                 android:textSize="15sp"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="5dp" />
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/textView_balance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:layout_marginStart="5dp"
+                android:background="@color/white"
                 android:text="@string/text_nothing_to_show"
-                android:layout_marginStart="5dp" />
+                android:textSize="15sp" />
+
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/day_balance_chart"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                />
+                android:background="@color/white" />
 
 
         </LinearLayout>

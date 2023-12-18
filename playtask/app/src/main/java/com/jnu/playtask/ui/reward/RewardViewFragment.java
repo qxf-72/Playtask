@@ -123,7 +123,18 @@ public class RewardViewFragment extends Fragment {
         // 监听数据变化
         rewardViewModel.getDataList().observe(getViewLifecycleOwner(), newData -> {
             rewardItems.clear();
+            if (newData == null) {
+                newData = new ArrayList<>();
+            }
             rewardItems.addAll(newData);
+            if (rewardItems.isEmpty()) {
+                rootView.findViewById(R.id.textView_hint_1).setVisibility(View.VISIBLE);
+                rootView.findViewById(R.id.textView_hint_2).setVisibility(View.VISIBLE);
+            } else {
+                rootView.findViewById(R.id.textView_hint_1).setVisibility(View.GONE);
+                rootView.findViewById(R.id.textView_hint_2).setVisibility(View.GONE);
+            }
+
             Objects.requireNonNull(recyclerView.getAdapter()).notifyDataSetChanged();
         });
 
@@ -147,8 +158,8 @@ public class RewardViewFragment extends Fragment {
                         // 插入数据库
                         rewardItem.setId(MainActivity.mDBMaster.mRewardDAO.insertData(rewardItem));
 
-                        // 添加数据
-                        rewardItems.add(rewardItem);
+                        // 更新数据源
+                        rewardViewModel.setDataList(MainActivity.mDBMaster.mRewardDAO.queryDataList(RewardDAO.NO_SORT));
 
                         // 更新recycleView
                         taskRecycleViewAdapter.notifyDataSetChanged();
@@ -174,7 +185,10 @@ public class RewardViewFragment extends Fragment {
                         // 更新数据库
                         MainActivity.mDBMaster.mRewardDAO.updateData((int) rewardItem.getId(), rewardItem);
 
-                        Objects.requireNonNull(recyclerView.getAdapter()).notifyItemChanged(position);
+                        // 更新内存中的数据
+                        rewardViewModel.setDataList(MainActivity.mDBMaster.mRewardDAO.queryDataList(RewardDAO.NO_SORT));
+
+                        Objects.requireNonNull(recyclerView.getAdapter()).notifyDataSetChanged();
                     }
                 });
 
@@ -244,6 +258,7 @@ public class RewardViewFragment extends Fragment {
     /**
      * 长按Item，执行弹出菜单
      */
+    @SuppressLint("NotifyDataSetChanged")
     private void showPopupMenuOnItemLongClick(View view, int position) {
         String[] options = {"编辑", "删除"};
 
@@ -266,8 +281,12 @@ public class RewardViewFragment extends Fragment {
                 case 1:
 
                     MainActivity.mDBMaster.mRewardDAO.deleteData((int) rewardItems.get(position).getId());
-                    rewardItems.remove(position);
-                    Objects.requireNonNull(recyclerView.getAdapter()).notifyItemRemoved(position);
+                    ArrayList<RewardItem> newData = MainActivity.mDBMaster.mRewardDAO.queryDataList(RewardDAO.NO_SORT);
+                    if (newData == null)
+                        newData = new ArrayList<>();
+                    rewardViewModel.setDataList(newData);
+
+                    Objects.requireNonNull(recyclerView.getAdapter()).notifyDataSetChanged();
 
                     break;
             }
@@ -278,7 +297,7 @@ public class RewardViewFragment extends Fragment {
 
 
     /**
-     * 显示删除确认对话框
+     * 满足奖励
      */
     private void showRewardConfirmationDialog(int position) {
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(requireContext());
@@ -297,14 +316,17 @@ public class RewardViewFragment extends Fragment {
                         if (rewardItem.getType() == 0) {
                             // 单次
                             MainActivity.mDBMaster.mRewardDAO.deleteData((int) rewardItem.getId());
-                            rewardItems.remove(position);
-                            Objects.requireNonNull(recyclerView.getAdapter()).notifyItemRemoved(position);
                         } else {
                             // 多次
                             rewardItem.setFinishedAmount(rewardItem.getFinishedAmount() + 1);
                             MainActivity.mDBMaster.mRewardDAO.updateData((int) rewardItem.getId(), rewardItem);
-                            Objects.requireNonNull(recyclerView.getAdapter()).notifyItemChanged(position);
                         }
+
+                        ArrayList<RewardItem> newData = MainActivity.mDBMaster.mRewardDAO.queryDataList(RewardDAO.NO_SORT);
+                        if (newData == null)
+                            newData = new ArrayList<>();
+                        rewardViewModel.setDataList(newData);
+                        Objects.requireNonNull(recyclerView.getAdapter()).notifyDataSetChanged();
 
                     }
                 })

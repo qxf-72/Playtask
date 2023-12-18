@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/text_select_order_object"
-        android:textSize="18sp"
+        android:textSize="15sp"
         >
     </TextView>
 
@@ -17,14 +17,13 @@
         android:id="@+id/spinner1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:prompt="@string/select_sort_option1" />
+        />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/text_select_order_direction"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:layout_marginTop="60dp"
         >
     </TextView>
@@ -32,7 +31,6 @@
     <Spinner
         android:id="@+id/spinner2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:prompt="@string/select_sort_option2" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

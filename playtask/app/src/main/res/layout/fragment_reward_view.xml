@@ -10,10 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycle_view_reward_task"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="32dp"
             app:layout_constraintBottom_toTopOf="@+id/textview_count"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -22,12 +24,44 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
+            android:id="@+id/textView_hint_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="无奖励"
+            android:textSize="25sp"
+            android:textStyle="bold"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/recycle_view_reward_task" />
+
+
+        <TextView
+            android:id="@+id/textView_hint_2"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:text="弗洛伊德认为，人的潜意识中存储这很多原始的欲望和冲动"
+            android:gravity="center"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.50"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_hint_1"
+            app:layout_constraintVertical_bias="0.05">
+
+        </TextView>
+
+        <TextView
             android:id="@+id/textview_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:text="@string/text_nothing_to_show"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:layout_marginStart="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

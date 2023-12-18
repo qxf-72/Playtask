@@ -33,6 +33,8 @@
             android:textSize="18sp"
             android:text="@string/text_nothing_to_show"
             android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="20dp"
         />
 
     </LinearLayout>

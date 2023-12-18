@@ -1,18 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.task.WeeklyTaskViewFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycle_view_weekly_task"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="10dp"
-        />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycle_view_weekly_task"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="10dp" />
+
+
+        <TextView
+            android:id="@+id/textView_hint_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_non_task"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/recycle_view_weekly_task"
+            app:layout_constraintEnd_toEndOf="@+id/recycle_view_weekly_task"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/recycle_view_weekly_task"
+            />
+
+        <TextView
+            android:id="@+id/textView_hint_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_yesterday_you_said_tomorrow"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/recycle_view_weekly_task"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.50"
+            app:layout_constraintStart_toStartOf="@+id/recycle_view_weekly_task"
+            app:layout_constraintTop_toBottomOf="@+id/textView_hint_1"
+            app:layout_constraintVertical_bias="0.05">
+
+        </TextView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

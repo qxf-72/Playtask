@@ -48,6 +48,7 @@ public class WeeklyTaskViewFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(TaskViewModel.class);
     }
 
+
     @SuppressLint({"UseCompatLoadingForDrawables", "NotifyDataSetChanged"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,20 +87,30 @@ public class WeeklyTaskViewFragment extends Fragment {
         recyclerView.setAdapter(taskRecycleViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
+
         // 观察数据变化
         viewModel.getDataList().observe(getViewLifecycleOwner(), newData -> {
             // 根据数据类型筛选出每周任务
             weeklyTaskItems.clear();
-            if(newData == null)
-                return;
+            if (newData == null) {
+                newData = new ArrayList<>();
+            }
             for (TaskItem taskItem : newData) {
                 if (taskItem.getType() == 1 && taskItem.getFinishedAmount() < taskItem.getTotalAmount()) {
                     weeklyTaskItems.add(taskItem);
                 }
             }
+            if (weeklyTaskItems.isEmpty()) {
+                rootView.findViewById(R.id.textView_hint_1).setVisibility(View.VISIBLE);
+                rootView.findViewById(R.id.textView_hint_2).setVisibility(View.VISIBLE);
+            } else {
+                rootView.findViewById(R.id.textView_hint_1).setVisibility(View.GONE);
+                rootView.findViewById(R.id.textView_hint_2).setVisibility(View.GONE);
+            }
             // 更新RecyclerView数据
             Objects.requireNonNull(recyclerView.getAdapter()).notifyDataSetChanged();
         });
+
 
         // 设置分割线
         DividerItemDecoration itemDecoration = new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL);

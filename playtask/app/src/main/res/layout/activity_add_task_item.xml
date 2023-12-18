@@ -13,15 +13,17 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:ems="10"
+        android:hint="@string/text_title"
         android:inputType="text"
         android:minHeight="48dp"
-        android:text="@string/text_title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.054"
-        tools:ignore="VisualLintTextFieldSize" />
+        tools:ignore="VisualLintTextFieldSize"
+        android:autofillHints="" />
+
 
     <EditText
         android:id="@+id/editTextNumber_reward_point"
@@ -29,58 +31,45 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:autofillHints=""
         android:ems="10"
+        android:hint="@string/text_reward_point"
         android:inputType="number"
         android:minHeight="48dp"
-        android:text="@string/text_reward_point"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextText_title"
-        app:layout_constraintVertical_bias="0.061"
-        tools:ignore="VisualLintTextFieldSize"
-        android:autofillHints="" />
+        app:layout_constraintVertical_bias="0.04"
+        tools:ignore="VisualLintTextFieldSize" />
 
     <EditText
         android:id="@+id/editTextNumber_task_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
+        android:autofillHints=""
         android:ems="10"
+        android:hint="@string/text_task_amount"
         android:inputType="number"
         android:minHeight="48dp"
-        android:text="@string/text_task_amount"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextNumber_reward_point"
-        app:layout_constraintVertical_bias="0.052" />
+        app:layout_constraintVertical_bias="0.041" />
 
-    <ImageView
-        android:id="@+id/imageView_triangle_gray"
-        android:layout_width="33dp"
-        android:layout_height="33dp"
-        android:src="@drawable/ic_drop_down_box"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextNumber_task_amount"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.804"
-        app:layout_constraintStart_toEndOf="@+id/editTextNumber_task_amount"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumber_reward_point"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/textView_reward_type"
+    <Spinner
+        android:id="@+id/spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/text_task_type"
-        android:textSize="20sp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/editTextNumber_task_amount"
-        app:layout_constraintEnd_toStartOf="@+id/imageView_triangle_gray"
-        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/editTextNumber_task_amount"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumber_reward_point"
+        app:layout_constraintTop_toTopOf="@+id/editTextNumber_task_amount"
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
@@ -91,6 +80,7 @@
         android:layout_marginRight="20dp"
         android:background="@drawable/rounded_button"
         android:text="@string/text_ok"
+        android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -105,6 +95,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_button"
         android:text="@string/text_cancel"
+        android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/button_add_task_item_ok"
         app:layout_constraintEnd_toEndOf="parent"

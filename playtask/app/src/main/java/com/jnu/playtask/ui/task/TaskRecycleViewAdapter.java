@@ -18,8 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jnu.playtask.MainActivity;
 import com.jnu.playtask.R;
 import com.jnu.playtask.data.CountItem;
+import com.jnu.playtask.data.TaskDAO;
 import com.jnu.playtask.data.TaskItem;
 import com.jnu.playtask.util.CountViewModel;
+import com.jnu.playtask.util.TaskViewModel;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -34,13 +36,15 @@ public class TaskRecycleViewAdapter extends RecyclerView.Adapter<TaskRecycleView
     private AdapterView.OnItemClickListener onItemClickListener;
     private AdapterView.OnItemLongClickListener onItemLongClickListener;
 
+    private TaskViewModel taskViewModel;
     private CountViewModel countViewModel;
 
 
     public TaskRecycleViewAdapter(Context context, ArrayList<TaskItem> taskItems) {
         this.context = context;
         this.taskItems = taskItems;
-        countViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(CountViewModel.class);
+        this.taskViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(TaskViewModel.class);
+        this.countViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(CountViewModel.class);
     }
 
 
@@ -51,6 +55,7 @@ public class TaskRecycleViewAdapter extends RecyclerView.Adapter<TaskRecycleView
         View view = LayoutInflater.from(this.context).inflate(R.layout.recycle_view_task_item, parent, false);
         return new MyViewHolder(view);
     }
+
 
     /**
      * 绑定数据到视图
@@ -63,6 +68,7 @@ public class TaskRecycleViewAdapter extends RecyclerView.Adapter<TaskRecycleView
         holder.name.setText(taskItem.getName());
         holder.total_amount.setText(taskItem.getFinishedAmount() + "/" + taskItem.getTotalAmount());
         holder.score.setText("+" + taskItem.getScore());
+
 
         // 设置单击和长按监听器
         holder.itemView.setOnClickListener(view -> {
@@ -78,6 +84,7 @@ public class TaskRecycleViewAdapter extends RecyclerView.Adapter<TaskRecycleView
             return false;
         });
 
+
         // 设置 CheckBox 的状态和点击监听器
         holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             // 当 CheckBox 被点击时，更新数据源中该项的状态
@@ -87,22 +94,29 @@ public class TaskRecycleViewAdapter extends RecyclerView.Adapter<TaskRecycleView
                 countViewModel.setData(countViewModel.getData().getValue() + taskItem.getScore());
 
                 taskItem.setFinishedAmount(taskItem.getFinishedAmount() + 1);
+
                 if (taskItem.getFinishedAmount() >= taskItem.getTotalAmount()) {
                     MainActivity.mDBMaster.mTaskDAO.deleteData((int) taskItem.getId());
-                    taskItems.remove(position);
-
                 } else {
                     MainActivity.mDBMaster.mTaskDAO.updateData((int) taskItem.getId(), taskItem);
                 }
-                // 延迟0.8s后更新数据源
-                buttonView.postDelayed(this::notifyDataSetChanged, 800);
 
-                // 延迟 0.8s 后恢复 CheckBox 的状态
-                buttonView.postDelayed(() -> buttonView.setChecked(false), 800);
+                // 延迟0.8s 更新 ViewModel 中的数据源 并刷新 RecyclerView
+                buttonView.postDelayed(() -> {
+                    ArrayList<TaskItem> newData = MainActivity.mDBMaster.mTaskDAO.queryDataList(TaskDAO.NO_SORT);
+                    if (newData == null)
+                        newData = new ArrayList<>();
+                    taskViewModel.setDataList(newData);
+
+                    notifyDataSetChanged();
+                    buttonView.setChecked(false);
+                }, 800);
+
             }
         });
 
     }
+
 
     /**
      * 获取数据项的数量
@@ -119,6 +133,7 @@ public class TaskRecycleViewAdapter extends RecyclerView.Adapter<TaskRecycleView
     public void setOnItemClickListener(AdapterView.OnItemClickListener listener) {
         this.onItemClickListener = listener;
     }
+
 
     /**
      * 设置长按监听器

@@ -61,6 +61,7 @@ public class DailyTaskViewFragment extends Fragment {
         recyclerView = rootView.findViewById(R.id.recycle_view_daily_task);
         TaskRecycleViewAdapter taskRecycleViewAdapter = new TaskRecycleViewAdapter(requireActivity(), dailyTaskItems);
 
+
         // 设置单击和长按监听器
         taskRecycleViewAdapter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -95,16 +96,25 @@ public class DailyTaskViewFragment extends Fragment {
         taskViewModel.getDataList().observe(getViewLifecycleOwner(), newData -> {
             // 根据TaskItem的type属性判断是否为每日任务,是则添加到dailyTaskItems中
             dailyTaskItems.clear();
-            if(newData == null)
-                return;
+            if (newData == null) {
+                newData = new ArrayList<>();
+            }
             for (TaskItem taskItem : newData) {
                 if (taskItem.getType() == 0 && taskItem.getFinishedAmount() < taskItem.getTotalAmount()) {
                     dailyTaskItems.add(taskItem);
                 }
             }
+            if (dailyTaskItems.isEmpty()) {
+                rootView.findViewById(R.id.textView_hint_1).setVisibility(View.VISIBLE);
+                rootView.findViewById(R.id.textView_hint_2).setVisibility(View.VISIBLE);
+            } else {
+                rootView.findViewById(R.id.textView_hint_1).setVisibility(View.GONE);
+                rootView.findViewById(R.id.textView_hint_2).setVisibility(View.GONE);
+            }
             // 更新RecyclerView数据
             Objects.requireNonNull(recyclerView.getAdapter()).notifyDataSetChanged();
         });
+
 
         // 设置分割线
         DividerItemDecoration itemDecoration = new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL);

@@ -111,9 +111,9 @@ public class TaskViewFragment extends Fragment {
                         TaskItem taskItem = new TaskItem(
                                 new Timestamp(System.currentTimeMillis()),
                                 intent.getStringExtra("name"),
-                                intent.getIntExtra("score", 0),
+                                intent.getIntExtra("score", 1),
                                 intent.getIntExtra("type", 0),
-                                intent.getIntExtra("total_amount", 0),
+                                intent.getIntExtra("total_amount", 1),
                                 0
                         );
                         // 插入数据库
