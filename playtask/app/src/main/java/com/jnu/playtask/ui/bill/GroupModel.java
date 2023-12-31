@@ -38,6 +38,18 @@ public class GroupModel {
         for (Map.Entry<String, ArrayList<CountItem>> entry : map.entrySet()) {
             groupedEntities.add(new GroupEntity(entry.getKey(), "", entry.getValue()));
         }
+        // 按时间排序
+        groupedEntities.sort((o1, o2) -> {
+            SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd日-E", Locale.getDefault());
+            try {
+                Date date1 = dateFormat1.parse(o1.getHeader());
+                Date date2 = dateFormat1.parse(o2.getHeader());
+                return (int) (date2.getTime() - date1.getTime());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return 0;
+        });
 
         return groupedEntities;
     }
