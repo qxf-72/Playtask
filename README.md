@@ -1,8 +1,10 @@
 # 简介
 
-本仓库中存放 暨南大学2023年秋季学期 移动软件开发 课程设计项目。
+本仓库存放 **暨南大学2023年秋季学期** **移动软件开发** 课程设计项目。
 
-项目基于实验课的项目进行，本仓库项目从实验课项目 copy 而来，从本仓库的提交记录可以看出以往实验的 push 记录。实验课仓库地址为：https://github.com/qxf-72/AndroidExperimentReport 。此后，本仓库将作为课程设计项目的仓库，PlayTask 程序将会在本仓库发布。
+本项目基于实验课的项目进行。本仓库项目从实验课项目 copy 而来，从本仓库的提交记录可以查看实验课的 push 记录。实验课仓库地址为：https://github.com/qxf-72/AndroidExperimentReport 。
+
+此后，本仓库将作为课程设计项目的仓库，PlayTask 程序将会在本仓库发布。
 
 ---
 
@@ -15,7 +17,9 @@
 
 # 使用
 
-本仓库中存放安卓 app 的源码，导出的 apk 文件可以在 release 中获取。
+仓库存储 app 的 Android Studio工程文件夹，可clone到本地后使用 Android Studio 打开。
+
+导出的 apk 文件已发布到 release ，可在 release 下载到安卓设备上安装使用。
 
 ---
 
@@ -84,7 +88,7 @@
 
 用户中心页面较为简单，不涉及主要功能，故不在此进行详细演示。
 
-<div align="center"> <img src="https://picture-in-md.oss-cn-guangzhou.aliyuncs.com/2024-01-09_215735.png" width = 400 /> </div>
+<div align="center"> <img src="https://picture-in-md.oss-cn-guangzhou.aliyuncs.com/2024-01-09_215735.png" width = 300 /> </div>
 
 
 
