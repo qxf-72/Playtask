@@ -1,5 +1,8 @@
-# 简介
+# 任务管理App
 
+![GitHub License](https://img.shields.io/github/license/qxf-72/Playtask)
+![GitHub top language](https://img.shields.io/github/languages/top/qxf-72/Playtask)
+![GitHub Repo stars](https://img.shields.io/github/stars/qxf-72/Playtask)
 
 **技术栈： Java、Android、SQLite、RecyclerView、ViewModel、MPAndroidChart**
 
@@ -8,13 +11,6 @@
 
 ---
 
-<br/>
-
-
-<br/>
-
-
-
 # 使用
 
 仓库存储 app 的 Android Studio工程文件夹，可clone到本地后使用 Android Studio 打开。
@@ -22,13 +18,6 @@
 导出的 apk 文件已发布到 release ，可在 release 下载到安卓设备上安装使用。
 
 ---
-
-
-<br/>
-
-
-<br/>
-
 
 # 演示
 
