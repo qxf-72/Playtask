@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
 }
 
-android {""
+android {
     namespace = "com.jnu.playtask"
     compileSdk = 34
 

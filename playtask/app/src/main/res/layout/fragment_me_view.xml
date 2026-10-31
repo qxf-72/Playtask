@@ -5,9 +5,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.me.MeViewFragment">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:clipToPadding="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -107,6 +113,43 @@
                     android:layout_marginRight="20dp"
                     android:src="@drawable/ic_next" />
 
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#1A000000" />
+
+            <RelativeLayout
+                android:id="@+id/data_backup_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/ic_budget" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="100dp"
+                    android:text="数据导入 / 导出"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/ic_next" />
             </RelativeLayout>
 
             <LinearLayout
@@ -236,5 +279,6 @@
 
 
     </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>

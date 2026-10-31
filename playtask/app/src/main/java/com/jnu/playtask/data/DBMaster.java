@@ -64,6 +64,10 @@ public class DBMaster {
         }
     }
 
+    public SQLiteDatabase getDatabase() {
+        return mDatabase;
+    }
+
 
     /**
      * 创建该数据库下Task表的语句

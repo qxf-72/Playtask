@@ -15,13 +15,26 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.jnu.playtask.R;
+import com.jnu.playtask.MainActivity;
+import com.jnu.playtask.data.CountItem;
+import com.jnu.playtask.data.DatabaseBackup;
 import com.jnu.playtask.util.CountViewModel;
+
+import org.json.JSONException;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
@@ -30,6 +43,8 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 public class MeViewFragment extends Fragment {
 
     private CountViewModel countViewModel;
+    private ActivityResultLauncher<String> createBackup;
+    private ActivityResultLauncher<String[]> chooseBackup;
 
     public MeViewFragment() {
     }
@@ -42,6 +57,12 @@ public class MeViewFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         countViewModel = new ViewModelProvider(requireActivity()).get(CountViewModel.class);
+        createBackup = registerForActivityResult(new ActivityResultContracts.CreateDocument("application/json"), uri -> {
+            if (uri != null) exportBackup(uri);
+        });
+        chooseBackup = registerForActivityResult(new ActivityResultContracts.OpenDocument(), uri -> {
+            if (uri != null) confirmImport(uri);
+        });
     }
 
     @Override
@@ -104,6 +125,7 @@ public class MeViewFragment extends Fragment {
         help_btn = rootView.findViewById(R.id.help_btn);
         update_btn = rootView.findViewById(R.id.update_btn);
         coffee_btn = rootView.findViewById(R.id.coffee_btn);
+        rootView.findViewById(R.id.data_backup_btn).setOnClickListener(v -> showBackupOptions());
 
         // “我的积分”点击事件
         budget_btn.setOnClickListener(v -> {
@@ -161,6 +183,60 @@ public class MeViewFragment extends Fragment {
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
         });
+    }
+
+    private void showBackupOptions() {
+        new AlertDialog.Builder(requireContext())
+                .setTitle("数据导入 / 导出")
+                .setItems(new String[]{"导出数据到备份文件", "从备份文件导入"}, (dialog, which) -> {
+                    if (which == 0) {
+                        createBackup.launch("PlayTask-backup-" + System.currentTimeMillis() + ".json");
+                    } else {
+                        chooseBackup.launch(new String[]{"application/json", "text/*", "application/octet-stream"});
+                    }
+                }).show();
+    }
+
+    private void exportBackup(Uri uri) {
+        try (OutputStream output = requireContext().getContentResolver().openOutputStream(uri)) {
+            if (output == null) throw new IOException("无法创建备份文件");
+            output.write(DatabaseBackup.exportData(MainActivity.mDBMaster.getDatabase()));
+            Toast.makeText(requireContext(), "数据已导出", Toast.LENGTH_LONG).show();
+        } catch (IOException | JSONException e) {
+            Toast.makeText(requireContext(), "导出失败：" + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void confirmImport(Uri uri) {
+        new AlertDialog.Builder(requireContext())
+                .setTitle("导入备份")
+                .setMessage("导入会覆盖本机现有的任务、奖励和积分流水。建议先导出现有数据备份。确定继续吗？")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("覆盖并导入", (dialog, which) -> importBackup(uri))
+                .show();
+    }
+
+    private void importBackup(Uri uri) {
+        try (InputStream input = requireContext().getContentResolver().openInputStream(uri)) {
+            if (input == null) throw new IOException("无法读取所选文件");
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+            byte[] chunk = new byte[8192];
+            int read;
+            while ((read = input.read(chunk)) != -1) {
+                if (buffer.size() + read > 10 * 1024 * 1024) throw new IOException("备份文件超过 10 MB");
+                buffer.write(chunk, 0, read);
+            }
+            int[] counts = DatabaseBackup.importData(MainActivity.mDBMaster.getDatabase(), buffer.toByteArray());
+            int total = 0;
+            for (int count : counts) total += count;
+            int score = 0;
+            ArrayList<CountItem> ledger = MainActivity.mDBMaster.mCountDAO.queryDataList();
+            if (ledger != null) for (CountItem item : ledger) score += item.getScore();
+            countViewModel.setData(score);
+            Toast.makeText(requireContext(), "导入完成：" + total + " 条记录", Toast.LENGTH_LONG).show();
+        } catch (IOException | JSONException | RuntimeException e) {
+            Toast.makeText(requireContext(), "导入失败，现有数据未更改：" + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
 
